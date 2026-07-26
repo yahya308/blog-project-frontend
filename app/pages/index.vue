@@ -33,7 +33,7 @@ const latestBlogs = computed(() => allBlogs.value.slice(1, 4))
 const error = computed(() => Boolean(blogsError.value))
 
 const categories = computed(() => {
-  const categoryMap = new Map<string, { id: string, name: string, count: number }>()
+  const categoryMap = new Map<string, { id: string, name: string, slug: string, count: number }>()
 
   for (const blog of allBlogs.value) {
     for (const category of blog.categories ?? []) {
@@ -41,6 +41,7 @@ const categories = computed(() => {
       categoryMap.set(category.id, {
         id: category.id,
         name: category.name,
+        slug: category.slug,
         count: (existing?.count ?? 0) + 1
       })
     }

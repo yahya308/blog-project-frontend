@@ -25,7 +25,7 @@ const selectedCategory = computed(() =>
 )
 
 const categories = computed(() => {
-  const map = new Map<string, { id: string, name: string, count: number }>()
+  const map = new Map<string, { id: string, name: string, slug: string, count: number }>()
 
   for (const blog of blogs.value) {
     for (const category of blog.categories ?? []) {
@@ -33,6 +33,7 @@ const categories = computed(() => {
       map.set(category.id, {
         id: category.id,
         name: category.name,
+        slug: category.slug,
         count: (existing?.count ?? 0) + 1
       })
     }
@@ -47,7 +48,9 @@ const filteredBlogs = computed(() => {
 
   if (selectedCategory.value) {
     result = result.filter(blog =>
-      blog.categories?.some(category => category.id === selectedCategory.value)
+      blog.categories?.some(category =>
+        category.slug === selectedCategory.value || category.id === selectedCategory.value
+      )
     )
   }
 
@@ -72,11 +75,15 @@ const filteredBlogs = computed(() => {
   })
 })
 
-async function selectCategory(categoryId: string | null) {
+function isCategorySelected(category: { id: string, slug: string }) {
+  return selectedCategory.value === category.slug || selectedCategory.value === category.id
+}
+
+async function selectCategory(categorySlug: string | null) {
   await router.replace({
     query: {
       ...route.query,
-      category: categoryId || undefined
+      category: categorySlug || undefined
     }
   })
 }
@@ -85,25 +92,36 @@ async function selectCategory(categoryId: string | null) {
 <template>
   <div>
     <section class="border-b border-neutral-800 bg-neutral-950 text-white">
-      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <p class="text-sm font-bold uppercase tracking-wider text-primary">
-          Arşiv
-        </p>
-        <h1 class="mt-3 text-4xl font-bold sm:text-5xl">
-          Yazılar
-        </h1>
-        <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
-          Teknoloji, yaşam, seyahat ve deneyimlerden oluşan tüm yayınlar tek yerde.
-        </p>
+      <div class="mx-auto grid max-w-6xl gap-8 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-end lg:px-8 lg:py-20">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary">
+            Arşiv
+          </p>
+          <h1 class="mt-4 font-display text-5xl font-semibold leading-none tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+            Yazılar<span class="text-primary">.</span>
+          </h1>
+          <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
+            Teknoloji, mühendislik, yaşam ve deneyimlerden oluşan açık not defteri.
+          </p>
+        </div>
+        <div class="border-t border-white/15 pt-4 text-sm leading-relaxed text-white/45 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/35">
+            Toplam arşiv
+          </p>
+          <p class="mt-2 font-display text-4xl font-semibold text-white">
+            {{ blogs.length }}
+          </p>
+          <p class="mt-1">yayınlanmış yazı</p>
+        </div>
       </div>
     </section>
 
     <section class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-      <div class="flex flex-col gap-4 border-b border-neutral-200 pb-6 dark:border-neutral-800 sm:flex-row sm:items-end sm:justify-between">
-        <div class="w-full max-w-xl">
+      <div class="grid gap-5 border-b border-neutral-300 pb-7 dark:border-neutral-700 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div class="w-full max-w-2xl">
           <label
             for="blog-search"
-            class="mb-2 block text-sm font-semibold text-neutral-700 dark:text-neutral-200"
+            class="mb-2 block text-xs font-bold uppercase tracking-[0.14em] text-neutral-500"
           >
             Yazılarda ara
           </label>
@@ -111,13 +129,13 @@ async function selectCategory(categoryId: string | null) {
             id="blog-search"
             v-model="searchQuery"
             icon="i-lucide-search"
-            placeholder="Başlık, yazar veya kategori..."
+            placeholder="Başlık veya kategori ara..."
             size="xl"
             class="w-full"
           />
         </div>
         <p
-          class="shrink-0 text-sm font-medium text-neutral-500"
+          class="text-sm font-medium text-neutral-500"
           aria-live="polite"
         >
           {{ filteredBlogs.length }} yazı gösteriliyor
@@ -151,11 +169,11 @@ async function selectCategory(categoryId: string | null) {
             type="button"
             role="tab"
             class="relative min-h-12 px-4 text-sm font-semibold transition"
-            :class="selectedCategory === category.id
+            :class="isCategorySelected(category)
               ? 'text-neutral-950 after:absolute after:inset-x-4 after:bottom-0 after:h-0.5 after:bg-primary dark:text-white'
               : 'text-neutral-500 hover:text-neutral-950 dark:hover:text-white'"
-            :aria-selected="selectedCategory === category.id"
-            @click="selectCategory(category.id)"
+            :aria-selected="isCategorySelected(category)"
+            @click="selectCategory(category.slug)"
           >
             {{ category.name }} <span class="ml-1 text-xs text-neutral-400">{{ category.count }}</span>
           </button>
@@ -164,19 +182,17 @@ async function selectCategory(categoryId: string | null) {
 
       <div
         v-if="loading"
-        class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        class="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
       >
         <div
           v-for="index in 6"
           :key="index"
-          class="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800"
+          class="border-t border-neutral-200 pt-5 dark:border-neutral-800"
         >
           <div class="aspect-[16/10] animate-pulse bg-neutral-200 dark:bg-neutral-800" />
-          <div class="space-y-3 p-5">
-            <div class="h-4 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div class="h-6 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-            <div class="h-4 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
-          </div>
+          <div class="mt-5 h-4 w-24 animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+          <div class="mt-3 h-7 w-full animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+          <div class="mt-3 h-4 w-4/5 animate-pulse bg-neutral-200 dark:bg-neutral-800" />
         </div>
       </div>
 
@@ -188,7 +204,7 @@ async function selectCategory(categoryId: string | null) {
           name="i-lucide-wifi-off"
           class="size-9 text-neutral-400"
         />
-        <h2 class="mt-4 text-lg font-bold">
+        <h2 class="mt-4 font-display text-2xl font-semibold">
           Yazılar yüklenemedi
         </h2>
         <UButton
@@ -208,7 +224,7 @@ async function selectCategory(categoryId: string | null) {
           name="i-lucide-search-x"
           class="size-9 text-neutral-400"
         />
-        <h2 class="mt-4 text-lg font-bold">
+        <h2 class="mt-4 font-display text-2xl font-semibold">
           Eşleşen yazı bulunamadı
         </h2>
         <p class="mt-2 max-w-sm text-sm text-neutral-500">
@@ -218,7 +234,7 @@ async function selectCategory(categoryId: string | null) {
 
       <div
         v-else
-        class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        class="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
       >
         <BlogCard
           v-for="blog in filteredBlogs"

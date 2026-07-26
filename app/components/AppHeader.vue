@@ -34,22 +34,15 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/90 backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-950/90">
+  <header class="sticky top-0 z-50 border-b border-neutral-200/80 bg-[#f8f8f6]/90 backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-950/90">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
       <NuxtLink
         to="/"
         class="group flex min-w-0 items-center gap-3"
         aria-label="Ana sayfa"
       >
-        <img
-          src="/icon-512.png"
-          alt=""
-          width="36"
-          height="36"
-          aria-hidden="true"
-          class="size-9 shrink-0 rounded-md object-cover shadow-sm transition-transform duration-200 group-hover:scale-105"
-        >
-        <span class="truncate text-base font-bold text-neutral-950 dark:text-white sm:text-lg">
+        <AppMark class="transition-transform duration-200 group-hover:-rotate-2" />
+        <span class="truncate text-sm font-bold tracking-tight text-neutral-950 dark:text-white sm:text-base">
           {{ SITE_NAME }}
         </span>
       </NuxtLink>
@@ -75,7 +68,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+          class="inline-flex size-11 items-center justify-center text-neutral-500 transition hover:bg-white hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
           aria-label="Renk temasını değiştir"
           title="Renk temasını değiştir"
           @click="toggleColorMode"
@@ -94,7 +87,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="flex items-center gap-1 sm:hidden">
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+          class="inline-flex size-11 items-center justify-center text-neutral-500 transition hover:bg-white hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
           aria-label="Renk temasını değiştir"
           title="Renk temasını değiştir"
           @click="toggleColorMode"
@@ -110,7 +103,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         </button>
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+          class="inline-flex size-11 items-center justify-center text-neutral-500 transition hover:bg-white hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
           :aria-expanded="mobileMenuOpen"
           aria-controls="mobile-navigation"
           :aria-label="mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'"
@@ -135,14 +128,14 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <nav
         v-if="mobileMenuOpen"
         id="mobile-navigation"
-        class="border-t border-neutral-200 bg-white px-4 py-3 shadow-lg sm:hidden dark:border-neutral-800 dark:bg-neutral-950"
+        class="border-t border-neutral-200 bg-[#f8f8f6] px-4 py-3 shadow-lg sm:hidden dark:border-neutral-800 dark:bg-neutral-950"
         aria-label="Mobil navigasyon"
       >
         <NuxtLink
           v-for="link in navLinks"
           :key="link.to"
           :to="link.to"
-          class="flex min-h-12 items-center justify-between border-b border-neutral-100 px-2 text-base font-semibold last:border-b-0 dark:border-neutral-900"
+          class="flex min-h-12 items-center justify-between border-b border-neutral-200 px-2 text-base font-semibold last:border-b-0 dark:border-neutral-900"
           :class="isActive(link.to) ? 'text-primary' : 'text-neutral-700 dark:text-neutral-200'"
           :aria-current="isActive(link.to) ? 'page' : undefined"
         >
