@@ -64,44 +64,12 @@ export default defineNuxtConfig({
     url: 'https://yahyabaltaci.co'
   },
 
-  image: {
-    domains: ['images.unsplash.com'],
-    format: ['webp'],
-    quality: 75,
-    screens: {
-      xs: 320,
-      sm: 640,
-      md: 768,
-      lg: 1024,
-      xl: 1280,
-      xxl: 1600
-    }
-  },
-
-  icon: {
-    clientBundle: {
-      // Dynamic :name bindings are not auto-scanned into the client bundle.
-      icons: [
-        'lucide:map-pin',
-        'lucide:graduation-cap',
-        'lucide:radar',
-        'lucide:code-2',
-        'lucide:plane'
-      ]
-    }
-  },
-
   runtimeConfig: {
     backendOrigin: 'http://localhost:5000',
 
     public: {
       apiBase: 'http://localhost:5000/api'
     }
-  },
-
-  sitemap: {
-    exclude: ['/admin/**'],
-    sources: ['/api/__sitemap__/urls']
   },
 
   compatibilityDate: '2026-06-30',
@@ -125,5 +93,37 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  icon: {
+    clientBundle: {
+      // Dynamic :name bindings are not auto-scanned into the client bundle.
+      icons: [
+        'lucide:map-pin',
+        'lucide:graduation-cap',
+        'lucide:radar',
+        'lucide:code-2',
+        'lucide:plane'
+      ]
+    }
+  },
+
+  image: {
+    domains: ['images.unsplash.com'],
+    format: ['webp'],
+    quality: 75,
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1600
+    }
+  },
+
+  sitemap: {
+    exclude: ['/admin/**'],
+    sources: ['/api/__sitemap__/urls']
   }
 })

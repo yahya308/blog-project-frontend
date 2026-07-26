@@ -255,7 +255,10 @@ onUnmounted(() => {
               aria-hidden="true"
             >•</span>
             <span v-if="blog.publishedAt">{{ formatDate(blog.publishedAt) }}</span>
-            <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
+            <span
+              class="text-neutral-300 dark:text-neutral-700"
+              aria-hidden="true"
+            >•</span>
             <span>{{ readingMinutes }} dk okuma</span>
             <button
               type="button"
