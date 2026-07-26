@@ -48,7 +48,6 @@ export interface CreateBlogPayload {
   seoKeywords?: string | null
   status: BlogStatus
   publishedAt?: string | null
-  authorId: string
   authorName?: string | null
   categoryIds?: string[]
 }
@@ -71,7 +70,6 @@ export interface UpdateBlogPayload {
 export interface BlogAuthor {
   id: string
   name: string
-  email: string
 }
 
 export interface Blog {

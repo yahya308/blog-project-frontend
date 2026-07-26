@@ -20,7 +20,7 @@ const categories = ref<Category[]>([])
 async function handleLogout() {
   await logout()
   useDashboardStore().resetStats()
-  await router.push('/admin')
+  await router.push('/admin/login')
 }
 
 async function fetchCategories() {

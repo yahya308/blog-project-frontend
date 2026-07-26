@@ -40,7 +40,7 @@ async function loadDashboard() {
 async function handleLogout() {
   await logout()
   dashboardStore.resetStats()
-  await router.push('/admin')
+  await router.push('/admin/login')
 }
 
 function openRecentBlogEdit(blog: Blog) {

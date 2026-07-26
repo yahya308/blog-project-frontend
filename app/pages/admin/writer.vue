@@ -28,7 +28,7 @@ const activeTab = computed({
 
 async function handleLogout() {
   await logout()
-  await router.push('/admin')
+  await router.push('/admin/login')
 }
 
 const categories = ref<Category[]>([])

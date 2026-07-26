@@ -5,9 +5,8 @@ export default defineNuxtRouteMiddleware(async () => {
     await fetchUser()
   }
 
-  if (!isAuthenticated.value) {
-    return navigateTo('/admin/login')
-  }
+  return navigateTo(
+    isAuthenticated.value ? '/admin/dashboard' : '/admin/login',
+    { replace: true }
+  )
 })
-
-// store, api ilişkileri, middleware.

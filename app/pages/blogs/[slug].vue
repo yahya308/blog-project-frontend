@@ -6,7 +6,7 @@ import { getImageSrcSet, getOptimizedImageUrl } from '~/utils/image'
 const route = useRoute()
 const toast = useToast()
 const { getPublishedBlogBySlug, getPublishedBlogs } = useBlogsApi()
-const blogId = computed(() => String(route.params.id))
+const blogSlug = computed(() => String(route.params.slug))
 const articleRef = ref<HTMLElement | null>(null)
 const coverImageRef = ref<HTMLImageElement | null>(null)
 const readingProgress = ref(0)
@@ -18,9 +18,9 @@ const {
   data: pageData,
   pending: loading,
   error: pageError
-} = await useAsyncData(`blog-page-${blogId.value}`, async () => {
+} = await useAsyncData(`blog-page-${blogSlug.value}`, async () => {
   const [currentBlog, publishedBlogs] = await Promise.all([
-    getPublishedBlogBySlug(blogId.value),
+    getPublishedBlogBySlug(blogSlug.value),
     getPublishedBlogs()
   ])
 

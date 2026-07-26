@@ -121,7 +121,7 @@ watch(open, async (isOpen) => {
       color: 'warning'
     })
     open.value = false
-    await router.push('/admin')
+    await router.push('/admin/login')
     return
   }
 
@@ -246,7 +246,7 @@ async function handleSubmit(statusOverride?: BlogFormState['status']) {
       description: 'Blog işlemleri için giriş yapmalısınız.',
       color: 'warning'
     })
-    await router.push('/admin')
+    await router.push('/admin/login')
     return
   }
 
@@ -279,10 +279,7 @@ async function handleSubmit(statusOverride?: BlogFormState['status']) {
         color: 'success'
       })
     } else {
-      await createBlog({
-        ...payload,
-        authorId: user.value.id
-      })
+      await createBlog(payload)
       toast.add({
         title: form.status === 'PUBLISHED' ? 'Blog yayınlandı' : 'Taslak kaydedildi',
         color: 'success'
