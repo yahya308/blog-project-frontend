@@ -199,14 +199,14 @@ async function onBlogSaved() {
       </template>
 
       <template #actions-cell="{ row }">
-        <div class="flex min-w-52 items-center justify-end gap-2">
+        <div class="flex items-center justify-end gap-1.5">
           <UButton
             icon="i-lucide-pencil"
             label="Düzenle"
-            color="primary"
-            variant="solid"
-            size="md"
-            class="min-h-10 min-w-24 justify-center font-semibold shadow-sm"
+            size="sm"
+            variant="outline"
+            color="neutral"
+            class="h-8 shrink-0 px-3 font-medium text-neutral-100 ring-neutral-600 hover:bg-neutral-800 hover:text-white"
             :aria-label="`${row.original.title} yazısını düzenle`"
             :title="`${row.original.title} yazısını düzenle`"
             @click="openEditDialog(row.original)"
@@ -214,10 +214,10 @@ async function onBlogSaved() {
           <UButton
             icon="i-lucide-trash-2"
             label="Sil"
-            color="error"
+            size="sm"
             variant="solid"
-            size="md"
-            class="min-h-10 min-w-20 justify-center font-semibold shadow-sm"
+            color="error"
+            class="h-8 shrink-0 bg-red-600 px-3 font-medium text-white hover:bg-red-500 disabled:bg-red-600/50"
             :aria-label="`${row.original.title} yazısını sil`"
             :title="`${row.original.title} yazısını sil`"
             @click="openDeleteModal(row.original)"
