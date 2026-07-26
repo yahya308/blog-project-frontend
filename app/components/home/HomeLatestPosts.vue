@@ -16,8 +16,8 @@ defineEmits<{
   <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
     <div class="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
-          <span class="h-px w-6 bg-primary/60" />
+        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-violet-800 dark:text-violet-300">
+          <span class="h-px w-6 bg-violet-700/70 dark:bg-violet-300/70" />
           Güncel
         </p>
         <h2 class="mt-3 text-2xl font-bold tracking-tight text-neutral-950 sm:text-3xl dark:text-white">

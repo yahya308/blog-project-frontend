@@ -10,18 +10,21 @@ defineProps<{
 
 <template>
   <section class="relative min-h-[clamp(31rem,72svh,40rem)] overflow-hidden bg-neutral-900 text-white">
-    <img
+    <NuxtImg
       src="/images/hero-fallback.jpg"
-      sizes="100vw"
       alt=""
       aria-hidden="true"
       width="1600"
       height="900"
+      sizes="100vw"
+      densities="1"
+      format="webp"
+      quality="72"
       loading="eager"
       fetchpriority="high"
-      decoding="async"
+      preload
       class="absolute inset-0 size-full scale-[1.015] object-cover object-center"
-    >
+    />
     <div class="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/80 to-neutral-950/35" />
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
     <div class="absolute -right-28 top-12 size-[28rem] rounded-full bg-primary/10 blur-3xl" />
@@ -47,6 +50,7 @@ defineProps<{
             color="primary"
             icon="i-lucide-book-open"
             label="Yazıları Oku"
+            class="bg-violet-700 text-white hover:bg-violet-600"
           />
           <UButton
             to="/hakkimda"

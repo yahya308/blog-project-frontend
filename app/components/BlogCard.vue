@@ -107,7 +107,7 @@ function formatDate(value?: string | null) {
           />
           <span
             class="text-xs font-semibold uppercase tracking-[0.12em]"
-            :class="index === 0 ? 'text-primary' : 'text-neutral-500 dark:text-neutral-400'"
+            :class="index === 0 ? 'text-violet-800 dark:text-violet-300' : 'text-neutral-600 dark:text-neutral-400'"
           >
             {{ category.name }}
           </span>

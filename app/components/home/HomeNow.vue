@@ -21,8 +21,8 @@ const items = [
 <template>
   <section class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
     <div class="mb-8">
-      <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
-        <span class="h-px w-6 bg-primary/60" />
+      <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-violet-800 dark:text-violet-300">
+        <span class="h-px w-6 bg-violet-700/70 dark:bg-violet-300/70" />
         Şu sıralar
       </p>
       <h2 class="mt-3 text-2xl font-bold tracking-tight text-neutral-950 sm:text-3xl dark:text-white">
@@ -43,7 +43,7 @@ const items = [
             class="size-5"
           />
         </span>
-        <p class="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
+        <p class="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-400">
           {{ item.label }}
         </p>
         <p class="mt-2 font-medium leading-relaxed text-neutral-950 dark:text-white">

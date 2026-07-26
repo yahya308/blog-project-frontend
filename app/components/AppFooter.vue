@@ -28,13 +28,13 @@ const footerLinks = [
           >
           {{ SITE_NAME }}
         </NuxtLink>
-        <p class="mt-4 max-w-md text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+        <p class="mt-4 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
           {{ SITE_DESCRIPTION }}
         </p>
       </div>
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
+        <p class="text-xs font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
           Keşfet
         </p>
         <nav class="mt-4 flex flex-col items-start gap-3">
@@ -42,7 +42,7 @@ const footerLinks = [
             v-for="link in footerLinks"
             :key="link.to"
             :to="link.to"
-            class="text-sm font-medium text-neutral-600 transition hover:text-primary dark:text-neutral-300"
+            class="text-sm font-medium text-neutral-700 transition hover:text-primary dark:text-neutral-300"
           >
             {{ link.label }}
           </NuxtLink>
@@ -50,7 +50,7 @@ const footerLinks = [
       </div>
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
+        <p class="text-xs font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
           Bağlantılar
         </p>
         <div class="mt-4 flex flex-col items-start gap-3">
@@ -60,7 +60,7 @@ const footerLinks = [
             :href="social.href"
             target="_blank"
             rel="noopener noreferrer"
-            class="group inline-flex min-h-8 items-center gap-2 text-sm font-medium text-neutral-600 transition hover:text-primary dark:text-neutral-300"
+            class="group inline-flex min-h-8 items-center gap-2 text-sm font-medium text-neutral-700 transition hover:text-primary dark:text-neutral-300"
           >
             <UIcon
               :name="social.icon"
@@ -73,7 +73,7 @@ const footerLinks = [
     </div>
 
     <div class="border-t border-neutral-200 dark:border-neutral-800">
-      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-neutral-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-neutral-600 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8 dark:text-neutral-400">
         <p>&copy; {{ currentYear }} {{ SITE_NAME }}. Tüm hakları saklıdır.</p>
         <p>İstanbul’dan düşünceler, notlar ve rotalar.</p>
       </div>

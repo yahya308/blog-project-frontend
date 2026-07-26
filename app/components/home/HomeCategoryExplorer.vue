@@ -18,8 +18,8 @@ defineProps<{
     <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
       <div class="grid gap-8 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16">
         <div>
-          <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
-            <span class="h-px w-6 bg-primary/60" />
+          <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-violet-800 dark:text-violet-300">
+            <span class="h-px w-6 bg-violet-700/70 dark:bg-violet-300/70" />
             Konular
           </p>
           <h2 class="mt-3 text-2xl font-bold tracking-tight text-neutral-950 sm:text-3xl dark:text-white">
@@ -46,7 +46,7 @@ defineProps<{
               <p class="font-semibold text-neutral-950 transition-colors group-hover:text-primary dark:text-white">
                 {{ category.name }}
               </p>
-              <p class="mt-1 text-sm text-neutral-500">
+              <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                 {{ category.count }} yazı
               </p>
             </div>
