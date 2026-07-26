@@ -1,63 +1,79 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-  modules: ["@nuxt/eslint", "@nuxt/ui", "@pinia/nuxt"],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@pinia/nuxt'],
 
   devtools: {
-    enabled: true,
+    enabled: true
   },
 
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: "Yahya Baltacı",
+      title: 'Yahya Baltacı',
       meta: [
         {
-          name: "description",
-          content: "Teknoloji, yaşam ve seyahat üzerine kişisel yazılar.",
-        },
+          name: 'description',
+          content: 'Teknoloji, yaşam ve seyahat üzerine kişisel yazılar.'
+        }
       ],
       link: [
         {
-          rel: "preconnect",
-          href: "https://images.unsplash.com",
-          crossorigin: "",
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32x32.png?v=2'
         },
-        { rel: "dns-prefetch", href: "https://images.unsplash.com" },
-      ],
-    },
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.ico?v=2'
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png?v=2'
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://images.unsplash.com',
+          crossorigin: ''
+        },
+        { rel: 'dns-prefetch', href: 'https://images.unsplash.com' }
+      ]
+    }
   },
 
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
-    backendOrigin: "http://localhost:5000",
+    backendOrigin: 'http://localhost:5000',
 
     public: {
-      apiBase: "http://localhost:5000/api",
-    },
+      apiBase: 'http://localhost:5000/api'
+    }
   },
 
-  compatibilityDate: "2026-06-30",
+  compatibilityDate: '2026-06-30',
 
   vite: {
     optimizeDeps: {
       include: [
-        "@nuxt/ui > prosemirror-state",
-        "@nuxt/ui > prosemirror-transform",
-        "@nuxt/ui > prosemirror-model",
-        "@nuxt/ui > prosemirror-view",
-        "@nuxt/ui > prosemirror-gapcursor",
-      ],
-    },
+        '@nuxt/ui > prosemirror-state',
+        '@nuxt/ui > prosemirror-transform',
+        '@nuxt/ui > prosemirror-model',
+        '@nuxt/ui > prosemirror-view',
+        '@nuxt/ui > prosemirror-gapcursor'
+      ]
+    }
   },
 
   eslint: {
     config: {
       stylistic: {
-        commaDangle: "never",
-        braceStyle: "1tbs",
-      },
-    },
-  },
-});
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  }
+})
