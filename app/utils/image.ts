@@ -4,6 +4,39 @@ interface ImageOptions {
   fit?: 'crop' | 'max'
 }
 
+const PLACEHOLDER_IMAGE_HOSTS = new Set([
+  'example.com',
+  'www.example.com'
+])
+
+export function normalizeImageUrl(value?: string | null) {
+  const trimmedValue = value?.trim()
+
+  if (!trimmedValue) {
+    return null
+  }
+
+  if (trimmedValue.startsWith('/')) {
+    return trimmedValue
+  }
+
+  try {
+    const url = new URL(trimmedValue)
+
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      return null
+    }
+
+    if (PLACEHOLDER_IMAGE_HOSTS.has(url.hostname.toLowerCase())) {
+      return null
+    }
+
+    return url.toString()
+  } catch {
+    return null
+  }
+}
+
 export function getOptimizedImageUrl(value: string, options: ImageOptions) {
   try {
     const url = new URL(value)

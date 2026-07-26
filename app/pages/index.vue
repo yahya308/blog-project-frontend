@@ -50,7 +50,15 @@ const categories = computed(() => {
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'tr'))
 })
 
-onActivated(refresh)
+const initialActivationCompleted = ref(false)
+
+onActivated(() => {
+  if (initialActivationCompleted.value) {
+    refresh()
+  }
+
+  initialActivationCompleted.value = true
+})
 </script>
 
 <template>

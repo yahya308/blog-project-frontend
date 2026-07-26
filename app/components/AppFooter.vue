@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { SITE_DESCRIPTION, SITE_NAME, SOCIAL_LINKS } from '~/utils/site'
 
-const currentYear = new Date().getFullYear()
+const currentYear = useState('current-year', () => new Date().getFullYear())
 
 const footerLinks = [
   { label: 'Ana Sayfa', to: '/' },
@@ -19,7 +19,9 @@ const footerLinks = [
           class="group inline-flex items-center gap-3 font-bold text-neutral-950 dark:text-white"
         >
           <img
-            src="/icon-512.png"
+            src="/icon-36.webp"
+            srcset="/icon-36.webp 36w, /icon-72.webp 72w"
+            sizes="36px"
             alt=""
             width="36"
             height="36"

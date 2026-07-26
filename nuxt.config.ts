@@ -103,7 +103,12 @@ export default defineNuxtConfig({
         'lucide:graduation-cap',
         'lucide:radar',
         'lucide:code-2',
-        'lucide:plane'
+        'lucide:plane',
+        'lucide:menu',
+        'lucide:x',
+        'simple-icons:github',
+        'simple-icons:linkedin',
+        'simple-icons:instagram'
       ]
     }
   },

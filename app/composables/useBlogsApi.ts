@@ -1,4 +1,5 @@
 import type { Blog, BlogStatus, CreateBlogPayload, UpdateBlogPayload } from '~/types/blog'
+import { normalizeImageUrl } from '~/utils/image'
 
 type ServerBlogStatus = 'TASLAK' | 'YAYINDA'
 type ServerBlog = Omit<Blog, 'status'> & { status: ServerBlogStatus }
@@ -24,7 +25,8 @@ function normalizeBlog(blog: ServerBlog): Blog {
   return {
     ...blog,
     status: blog.status === 'YAYINDA' ? 'PUBLISHED' : 'DRAFT',
-    authorName: blog.authorName?.trim() || blog.author?.name || null
+    authorName: blog.authorName?.trim() || blog.author?.name || null,
+    coverImage: normalizeImageUrl(blog.coverImage)
   }
 }
 

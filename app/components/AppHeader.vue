@@ -42,7 +42,9 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         aria-label="Ana sayfa"
       >
         <img
-          src="/icon-512.png"
+          src="/icon-36.webp"
+          srcset="/icon-36.webp 36w, /icon-72.webp 72w"
+          sizes="36px"
           alt=""
           width="36"
           height="36"

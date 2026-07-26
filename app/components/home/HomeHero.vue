@@ -12,17 +12,10 @@ useHead({
     {
       rel: 'preload',
       as: 'image',
-      href: '/images/hero-768.webp',
-      type: 'image/webp',
-      media: '(max-width: 768px)',
-      fetchpriority: 'high'
-    },
-    {
-      rel: 'preload',
-      as: 'image',
       href: '/images/hero-1280.webp',
       type: 'image/webp',
-      media: '(min-width: 769px)',
+      imagesrcset: '/images/hero-768.webp 768w, /images/hero-1280.webp 1280w, /images/hero-1600.webp 1600w',
+      imagesizes: '100vw',
       fetchpriority: 'high'
     }
   ]

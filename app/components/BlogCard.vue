@@ -44,7 +44,8 @@ function formatDate(value?: string | null) {
   return new Intl.DateTimeFormat('tr-TR', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'Europe/Istanbul'
   }).format(new Date(value))
 }
 </script>
@@ -68,26 +69,24 @@ function formatDate(value?: string | null) {
         loading="lazy"
         decoding="async"
       >
-      <ClientOnly>
-        <img
-          v-if="blog.coverImage && !imageError"
-          ref="imageRef"
-          :src="getOptimizedImageUrl(blog.coverImage, { width: 720, quality: 76 })"
-          :srcset="getImageSrcSet(blog.coverImage, [360, 540, 720], { quality: 76 })"
-          sizes="(min-width: 1024px) 352px, (min-width: 640px) 50vw, 100vw"
-          :alt="blog.title"
-          class="absolute inset-0 size-full object-cover transition duration-700 ease-out"
-          :class="imageLoaded
-            ? 'opacity-100 group-hover:scale-[1.035]'
-            : 'opacity-0'"
-          width="720"
-          height="405"
-          loading="lazy"
-          decoding="async"
-          @load="imageLoaded = true"
-          @error="imageError = true"
-        >
-      </ClientOnly>
+      <img
+        v-if="blog.coverImage && !imageError"
+        ref="imageRef"
+        :src="getOptimizedImageUrl(blog.coverImage, { width: 720, quality: 70 })"
+        :srcset="getImageSrcSet(blog.coverImage, [360, 540, 720], { quality: 70 })"
+        sizes="(min-width: 1024px) 352px, (min-width: 640px) 50vw, 100vw"
+        :alt="blog.title"
+        class="absolute inset-0 size-full object-cover transition duration-700 ease-out"
+        :class="imageLoaded
+          ? 'opacity-100 group-hover:scale-[1.035]'
+          : 'opacity-0'"
+        width="720"
+        height="405"
+        loading="lazy"
+        decoding="async"
+        @load="imageLoaded = true"
+        @error="imageError = true"
+      >
       <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </NuxtLink>
 

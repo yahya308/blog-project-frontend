@@ -56,7 +56,7 @@ const seoTitle = computed(() => blog.value?.seoTitle || blog.value?.title || 'Bl
 const seoDescription = computed(() => blog.value?.seoDescription || blog.value?.excerpt || '')
 const coverImageSrcSet = computed(() =>
   blog.value?.coverImage && !coverImageFailed.value
-    ? getImageSrcSet(blog.value.coverImage, [640, 960, 1280], { quality: 82, fit: 'max' })
+    ? getImageSrcSet(blog.value.coverImage, [640, 960, 1280], { quality: 78, fit: 'max' })
     : undefined
 )
 
@@ -88,7 +88,8 @@ function formatDate(value?: string | null) {
   return new Intl.DateTimeFormat('tr-TR', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'Europe/Istanbul'
   }).format(new Date(value))
 }
 
@@ -291,25 +292,23 @@ onUnmounted(() => {
               loading="eager"
               decoding="async"
             >
-            <ClientOnly>
-              <img
-                v-if="blog.coverImage && !coverImageFailed"
-                ref="coverImageRef"
-                :src="getOptimizedImageUrl(blog.coverImage, { width: 1280, quality: 82, fit: 'max' })"
-                :srcset="coverImageSrcSet"
-                sizes="(min-width: 1152px) 1152px, 100vw"
-                :alt="blog.title"
-                class="absolute inset-0 size-full bg-neutral-100 object-contain transition-opacity duration-300 dark:bg-neutral-900"
-                :class="coverImageLoaded ? 'opacity-100' : 'opacity-0'"
-                width="1280"
-                height="720"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-                @load="coverImageLoaded = true"
-                @error="handleCoverImageError"
-              >
-            </ClientOnly>
+            <img
+              v-if="blog.coverImage && !coverImageFailed"
+              ref="coverImageRef"
+              :src="getOptimizedImageUrl(blog.coverImage, { width: 1280, quality: 78, fit: 'max' })"
+              :srcset="coverImageSrcSet"
+              sizes="(min-width: 1152px) 1152px, 100vw"
+              :alt="blog.title"
+              class="absolute inset-0 size-full bg-neutral-100 object-contain transition-opacity duration-300 dark:bg-neutral-900"
+              :class="coverImageLoaded ? 'opacity-100' : 'opacity-0'"
+              width="1280"
+              height="720"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              @load="coverImageLoaded = true"
+              @error="handleCoverImageError"
+            >
           </div>
         </div>
       </div>
