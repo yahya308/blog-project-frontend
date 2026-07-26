@@ -152,7 +152,8 @@ async function loadBlog(id: string) {
       ? new Date(blog.publishedAt).toISOString().slice(0, 16)
       : ''
     form.categoryIds = blog.categories?.map(category => category.id) ?? []
-    slugManuallyEdited.value = true
+    // Title edits keep syncing the slug until the slug field is edited manually
+    slugManuallyEdited.value = false
     seoTitleManuallyEdited.value = Boolean(blog.seoTitle)
   } catch {
     toast.add({
