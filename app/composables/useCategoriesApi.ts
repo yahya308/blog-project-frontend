@@ -1,4 +1,5 @@
-import type { Category, CreateCategoryPayload, UpdateCategoryPayload } from '~/types/blog'
+import type { Category, CreateCategoryPayload, UpdateCategoryPayload } from '../types/blog'
+import { useApiClient } from './useApiClient'
 
 interface CategoriesResponse {
   success: boolean
