@@ -3,13 +3,15 @@ import { SITE_NAME, SOCIAL_LINKS } from '~/utils/site'
 </script>
 
 <template>
-  <section class="border-t border-neutral-200/80 bg-neutral-950 text-white dark:border-neutral-800/80">
-    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-16">
+  <section class="relative overflow-hidden border-t border-neutral-800 bg-neutral-950 text-white">
+    <div class="pointer-events-none absolute -right-32 top-1/2 size-96 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
+    <div class="relative mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-16">
       <div>
-        <p class="text-sm font-medium uppercase tracking-wider text-white/50">
+        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/50">
+          <span class="h-px w-6 bg-primary/70" />
           Yazar hakkında
         </p>
-        <h2 class="mt-3 text-3xl font-bold">
+        <h2 class="mt-4 text-3xl font-bold tracking-tight">
           Merhaba, ben {{ SITE_NAME }}.
         </h2>
       </div>
@@ -22,7 +24,7 @@ import { SITE_NAME, SOCIAL_LINKS } from '~/utils/site'
         <div class="mt-7 flex flex-wrap items-center gap-3">
           <UButton
             to="/hakkimda"
-            color="neutral"
+            color="primary"
             icon="i-lucide-user-round"
             label="Daha Yakından Tanı"
           />
@@ -33,9 +35,10 @@ import { SITE_NAME, SOCIAL_LINKS } from '~/utils/site'
             target="_blank"
             rel="noopener noreferrer"
             color="neutral"
-            variant="ghost"
+            variant="outline"
             :icon="social.icon"
             :aria-label="social.label"
+            class="border-white/15 bg-white/[0.03] text-white hover:bg-white/10"
           />
         </div>
       </div>

@@ -84,12 +84,14 @@ async function selectCategory(categoryId: string | null) {
 
 <template>
   <div>
-    <section class="border-b border-neutral-800 bg-neutral-950 text-white">
-      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <p class="text-sm font-bold uppercase tracking-wider text-primary">
+    <section class="relative overflow-hidden border-b border-neutral-800 bg-neutral-950 text-white">
+      <div class="pointer-events-none absolute -right-24 top-0 size-80 rounded-full bg-primary/10 blur-3xl" />
+      <div class="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+          <span class="h-px w-6 bg-primary/70" />
           Arşiv
         </p>
-        <h1 class="mt-3 text-4xl font-bold sm:text-5xl">
+        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
           Yazılar
         </h1>
         <p class="mt-4 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
@@ -164,14 +166,14 @@ async function selectCategory(categoryId: string | null) {
 
       <div
         v-if="loading"
-        class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        class="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3"
       >
         <div
           v-for="index in 6"
           :key="index"
-          class="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800"
+          class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800"
         >
-          <div class="aspect-[16/10] animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+          <div class="aspect-[16/9] animate-pulse bg-neutral-200 dark:bg-neutral-800" />
           <div class="space-y-3 p-5">
             <div class="h-4 w-24 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
             <div class="h-6 w-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
@@ -218,7 +220,7 @@ async function selectCategory(categoryId: string | null) {
 
       <div
         v-else
-        class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        class="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3"
       >
         <BlogCard
           v-for="blog in filteredBlogs"

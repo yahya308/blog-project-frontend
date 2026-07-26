@@ -16,11 +16,16 @@ const footerLinks = [
       <div>
         <NuxtLink
           to="/"
-          class="inline-flex items-center gap-3 font-bold text-neutral-950 dark:text-white"
+          class="group inline-flex items-center gap-3 font-bold text-neutral-950 dark:text-white"
         >
-          <span class="flex size-9 items-center justify-center rounded-md bg-neutral-950 text-sm text-white dark:bg-white dark:text-neutral-950">
-            YB
-          </span>
+          <img
+            src="/icon-512.png"
+            alt=""
+            width="36"
+            height="36"
+            aria-hidden="true"
+            class="size-9 rounded-md object-cover shadow-sm ring-1 ring-neutral-200/70 transition-transform duration-200 group-hover:scale-105 dark:ring-neutral-800"
+          >
           {{ SITE_NAME }}
         </NuxtLink>
         <p class="mt-4 max-w-md text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
@@ -55,11 +60,11 @@ const footerLinks = [
             :href="social.href"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex min-h-8 items-center gap-2 text-sm font-medium text-neutral-600 transition hover:text-primary dark:text-neutral-300"
+            class="group inline-flex min-h-8 items-center gap-2 text-sm font-medium text-neutral-600 transition hover:text-primary dark:text-neutral-300"
           >
             <UIcon
               :name="social.icon"
-              class="size-4"
+              class="size-4 transition-transform group-hover:-translate-y-0.5"
             />
             {{ social.label }}
           </a>

@@ -44,12 +44,14 @@ const topics = [
 
 <template>
   <div>
-    <section class="border-b border-neutral-800 bg-neutral-950 text-white">
-      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
-        <p class="text-sm font-bold uppercase tracking-wider text-primary">
+    <section class="relative overflow-hidden border-b border-neutral-800 bg-neutral-950 text-white">
+      <div class="pointer-events-none absolute -right-28 top-8 size-96 rounded-full bg-primary/10 blur-3xl" />
+      <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+          <span class="h-px w-6 bg-primary/70" />
           Hakkımda
         </p>
-        <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+        <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
           Selam, ben {{ SITE_NAME }}.
         </h1>
         <p class="mt-6 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
@@ -82,10 +84,12 @@ const topics = [
           :key="fact.label"
           class="flex gap-4 border-b border-neutral-200 py-5 last:border-b-0 dark:border-neutral-800"
         >
-          <UIcon
-            :name="fact.icon"
-            class="mt-0.5 size-5 shrink-0 text-primary"
-          />
+          <span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/10">
+            <UIcon
+              :name="fact.icon"
+              class="size-[1.125rem]"
+            />
+          </span>
           <div>
             <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
               {{ fact.label }}

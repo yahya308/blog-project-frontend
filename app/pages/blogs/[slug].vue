@@ -203,8 +203,9 @@ onUnmounted(() => {
       v-else
       ref="articleRef"
     >
-      <header class="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/40">
-        <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <header class="relative overflow-hidden border-b border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/40">
+        <div class="pointer-events-none absolute -right-24 top-6 size-72 rounded-full bg-primary/5 blur-3xl" />
+        <div class="relative mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
           <NuxtLink
             to="/blogs"
             class="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-neutral-500 transition hover:text-primary"
@@ -218,19 +219,19 @@ onUnmounted(() => {
 
           <div
             v-if="blog.categories?.length"
-            class="mt-7 flex flex-wrap gap-x-4 gap-y-2"
+            class="mt-7 flex flex-wrap gap-2"
           >
             <NuxtLink
               v-for="category in blog.categories"
               :key="category.id"
               :to="{ path: '/blogs', query: { category: category.id } }"
-              class="text-xs font-bold uppercase tracking-wider text-primary transition hover:text-primary/70"
+              class="rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-primary transition hover:border-primary/25 hover:bg-primary/10"
             >
               {{ category.name }}
             </NuxtLink>
           </div>
 
-          <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight text-neutral-950 sm:text-4xl lg:text-5xl dark:text-white">
+          <h1 class="mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-neutral-950 sm:text-4xl lg:text-5xl dark:text-white">
             {{ blog.title }}
           </h1>
 
@@ -241,18 +242,24 @@ onUnmounted(() => {
             {{ blog.excerpt }}
           </p>
 
-          <div class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+          <div class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-3 text-sm text-neutral-500 dark:text-neutral-400">
             <span
               v-if="authorName"
               class="font-semibold text-neutral-700 dark:text-neutral-200"
             >
               {{ authorName }}
             </span>
+            <span
+              v-if="authorName && blog.publishedAt"
+              class="text-neutral-300 dark:text-neutral-700"
+              aria-hidden="true"
+            >•</span>
             <span v-if="blog.publishedAt">{{ formatDate(blog.publishedAt) }}</span>
+            <span class="text-neutral-300 dark:text-neutral-700" aria-hidden="true">•</span>
             <span>{{ readingMinutes }} dk okuma</span>
             <button
               type="button"
-              class="inline-flex min-h-11 items-center gap-2 font-semibold text-neutral-600 transition hover:text-primary dark:text-neutral-300"
+              class="ml-1 inline-flex min-h-9 items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 font-semibold text-neutral-600 transition hover:border-primary/20 hover:bg-primary/5 hover:text-primary dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300"
               @click="shareArticle"
             >
               <UIcon
@@ -267,46 +274,48 @@ onUnmounted(() => {
 
       <div
         v-if="blog.coverImage"
-        class="border-b border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900"
+        class="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950"
       >
-        <div class="relative mx-auto flex h-[clamp(20rem,55vw,34rem)] max-w-6xl items-center justify-center overflow-hidden px-4 py-5 sm:px-6 lg:px-8">
-          <img
-            src="/images/blog-fallback.jpg"
-            alt=""
-            aria-hidden="true"
-            class="h-full w-full object-cover"
-            width="1280"
-            height="720"
-            loading="eager"
-            decoding="async"
-          >
-          <ClientOnly>
+        <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <div class="relative flex h-[clamp(20rem,55vw,34rem)] items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
             <img
-              v-if="blog.coverImage && !coverImageFailed"
-              ref="coverImageRef"
-              :src="getOptimizedImageUrl(blog.coverImage, { width: 1280, quality: 82, fit: 'max' })"
-              :srcset="coverImageSrcSet"
-              sizes="(min-width: 1152px) 1152px, 100vw"
-              :alt="blog.title"
-              class="absolute inset-0 size-full bg-neutral-100 object-contain transition-opacity duration-300 dark:bg-neutral-900"
-              :class="coverImageLoaded ? 'opacity-100' : 'opacity-0'"
+              src="/images/blog-fallback.jpg"
+              alt=""
+              aria-hidden="true"
+              class="h-full w-full object-cover"
               width="1280"
               height="720"
               loading="eager"
-              fetchpriority="high"
               decoding="async"
-              @load="coverImageLoaded = true"
-              @error="handleCoverImageError"
             >
-          </ClientOnly>
+            <ClientOnly>
+              <img
+                v-if="blog.coverImage && !coverImageFailed"
+                ref="coverImageRef"
+                :src="getOptimizedImageUrl(blog.coverImage, { width: 1280, quality: 82, fit: 'max' })"
+                :srcset="coverImageSrcSet"
+                sizes="(min-width: 1152px) 1152px, 100vw"
+                :alt="blog.title"
+                class="absolute inset-0 size-full bg-neutral-100 object-contain transition-opacity duration-300 dark:bg-neutral-900"
+                :class="coverImageLoaded ? 'opacity-100' : 'opacity-0'"
+                width="1280"
+                height="720"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                @load="coverImageLoaded = true"
+                @error="handleCoverImageError"
+              >
+            </ClientOnly>
+          </div>
         </div>
       </div>
 
-      <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <div class="mx-auto max-w-3xl px-4 py-11 sm:px-6 sm:py-16 lg:px-8">
         <!-- Backend sanitizes this HTML before it reaches the renderer. -->
         <!-- eslint-disable vue/no-v-html -->
         <div
-          class="blog-content text-[1.0625rem] leading-8 text-neutral-700 dark:text-neutral-300"
+          class="blog-content text-neutral-700 dark:text-neutral-300"
           v-html="blog.content"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -320,10 +329,11 @@ onUnmounted(() => {
       <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div class="flex items-end justify-between gap-4">
           <div>
-            <p class="text-sm font-bold uppercase tracking-wider text-neutral-500">
+            <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+              <span class="h-px w-6 bg-primary/60" />
               Okumaya devam et
             </p>
-            <h2 class="mt-2 text-2xl font-bold sm:text-3xl">
+            <h2 class="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
               Benzer yazılar
             </h2>
           </div>
@@ -336,7 +346,7 @@ onUnmounted(() => {
             color="neutral"
           />
         </div>
-        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           <BlogCard
             v-for="item in relatedBlogs"
             :key="item.id"

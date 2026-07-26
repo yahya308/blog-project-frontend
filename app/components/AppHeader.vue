@@ -34,7 +34,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/90 backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-950/90">
+  <header class="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/85 backdrop-blur-xl dark:border-neutral-800/80 dark:bg-neutral-950/85">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
       <NuxtLink
         to="/"
@@ -47,7 +47,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
           width="36"
           height="36"
           aria-hidden="true"
-          class="size-9 shrink-0 rounded-md object-cover shadow-sm transition-transform duration-200 group-hover:scale-105"
+          class="size-9 shrink-0 rounded-md object-cover shadow-sm ring-1 ring-neutral-200/70 transition-transform duration-200 group-hover:scale-105 dark:ring-neutral-800"
         >
         <span class="truncate text-base font-bold text-neutral-950 dark:text-white sm:text-lg">
           {{ SITE_NAME }}
@@ -75,7 +75,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+          class="inline-flex size-10 items-center justify-center rounded-lg border border-transparent text-neutral-500 transition hover:border-neutral-200 hover:bg-neutral-50 hover:text-neutral-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-neutral-400 dark:hover:border-neutral-800 dark:hover:bg-neutral-900 dark:hover:text-white"
           aria-label="Renk temasını değiştir"
           title="Renk temasını değiştir"
           @click="toggleColorMode"
@@ -94,7 +94,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="flex items-center gap-1 sm:hidden">
         <button
           type="button"
-          class="inline-flex size-11 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
+          class="inline-flex size-10 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-950 dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white"
           aria-label="Renk temasını değiştir"
           title="Renk temasını değiştir"
           @click="toggleColorMode"
