@@ -45,44 +45,25 @@ const topics = [
 <template>
   <div>
     <section class="border-b border-neutral-800 bg-neutral-950 text-white">
-      <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 sm:py-18 lg:grid-cols-[minmax(0,1.15fr)_20rem] lg:items-center lg:gap-16 lg:px-8 lg:py-20">
-        <div>
-          <p class="text-xs font-bold uppercase tracking-[0.18em] text-primary">
-            Hakkımda
-          </p>
-          <h1 class="mt-5 max-w-4xl font-display text-[clamp(3.5rem,8vw,6.3rem)] font-semibold leading-[0.9] tracking-[-0.05em]">
-            Selam, ben Yahya<span class="text-primary">.</span>
-          </h1>
-          <p class="mt-7 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
-            Mühendislik, merak ve yeni deneyimler arasında kendi yolunu çizen bir bilgisayar mühendisliği öğrencisiyim.
-          </p>
-        </div>
-
-        <figure class="relative mx-auto w-full max-w-xs lg:mx-0">
-          <div class="absolute -bottom-3 -right-3 size-full border border-primary/40" aria-hidden="true" />
-          <img
-            src="/images/profile-placeholder.svg"
-            alt="Yahya Baltacı için profil görseli"
-            class="relative aspect-[4/5] w-full border border-white/15 bg-neutral-900 object-cover"
-            width="640"
-            height="800"
-          >
-          <figcaption class="mt-4 text-xs leading-relaxed text-white/40">
-            Yahya Baltacı · İstanbul
-          </figcaption>
-        </figure>
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <p class="text-sm font-bold uppercase tracking-wider text-primary">
+          Hakkımda
+        </p>
+        <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+          Selam, ben {{ SITE_NAME }}.
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-white/65 sm:text-xl">
+          Mühendislik, merak ve yeni deneyimler arasında kendi yolunu çizen bir bilgisayar mühendisliği öğrencisiyim.
+        </p>
       </div>
     </section>
 
-    <section class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 lg:px-8 lg:py-24">
+    <section class="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 lg:px-8 lg:py-20">
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
+        <p class="text-sm font-bold uppercase tracking-wider text-neutral-500">
           Hikâyem
         </p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
-          Öğrenirken geride iz bırakmak.
-        </h2>
-        <div class="mt-7 max-w-3xl space-y-5 text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
+        <div class="mt-5 space-y-5 text-lg leading-relaxed text-neutral-600 dark:text-neutral-300">
           <p>
             İstanbul’da bilgisayar mühendisliği okuyorum. Üniversitenin son döneminde bir yandan teknik olarak kendimi geliştiriyor, bir yandan da mezuniyet sonrasındaki yönümü daha net hale getiriyorum.
           </p>
@@ -95,23 +76,21 @@ const topics = [
         </div>
       </div>
 
-      <aside class="border-y border-neutral-300 dark:border-neutral-700 lg:border-y-0 lg:border-l lg:pl-10">
+      <aside class="border-y border-neutral-200 dark:border-neutral-800 lg:border-y-0 lg:border-l lg:pl-10">
         <div
           v-for="fact in facts"
           :key="fact.label"
-          class="flex gap-4 border-b border-neutral-300 py-5 last:border-b-0 dark:border-neutral-700"
+          class="flex gap-4 border-b border-neutral-200 py-5 last:border-b-0 dark:border-neutral-800"
         >
-          <div class="flex size-9 shrink-0 items-center justify-center border border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-900">
-            <UIcon
-              :name="fact.icon"
-              class="size-4 text-primary"
-            />
-          </div>
+          <UIcon
+            :name="fact.icon"
+            class="mt-0.5 size-5 shrink-0 text-primary"
+          />
           <div>
-            <p class="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
+            <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
               {{ fact.label }}
             </p>
-            <p class="mt-1 font-display text-lg font-semibold text-neutral-950 dark:text-white">
+            <p class="mt-1 font-semibold text-neutral-950 dark:text-white">
               {{ fact.value }}
             </p>
           </div>
@@ -119,23 +98,23 @@ const topics = [
       </aside>
     </section>
 
-    <section class="border-y border-neutral-200 bg-white/55 dark:border-neutral-800 dark:bg-neutral-900/30">
-      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
+    <section class="border-y border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/40">
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <p class="text-sm font-bold uppercase tracking-wider text-neutral-500">
           Yol haritası
         </p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
+        <h2 class="mt-3 text-3xl font-bold text-neutral-950 dark:text-white">
           Nereye gitmek istiyorum?
         </h2>
 
-        <ol class="mt-10 grid gap-0 border-t border-neutral-300 dark:border-neutral-700 lg:grid-cols-3">
+        <ol class="mt-10 grid gap-0 border-t border-neutral-200 dark:border-neutral-800 lg:grid-cols-3">
           <li
             v-for="goal in goals"
             :key="goal.number"
-            class="border-b border-neutral-300 py-8 lg:border-b-0 lg:border-r lg:px-8 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0 dark:border-neutral-700"
+            class="border-b border-neutral-200 py-7 lg:border-b-0 lg:border-r lg:px-8 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0 dark:border-neutral-800"
           >
-            <span class="text-xs font-bold uppercase tracking-[0.16em] text-primary">{{ goal.number }}</span>
-            <h3 class="mt-5 font-display text-2xl font-semibold leading-tight text-neutral-950 dark:text-white">
+            <span class="text-sm font-bold text-primary">{{ goal.number }}</span>
+            <h3 class="mt-4 text-xl font-bold text-neutral-950 dark:text-white">
               {{ goal.title }}
             </h3>
             <p class="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
@@ -146,42 +125,40 @@ const topics = [
       </div>
     </section>
 
-    <section class="mx-auto grid max-w-6xl gap-14 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-24">
+    <section class="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8 lg:py-20">
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
+        <p class="text-sm font-bold uppercase tracking-wider text-neutral-500">
           Blogda ne var?
         </p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
+        <h2 class="mt-3 text-3xl font-bold text-neutral-950 dark:text-white">
           Samimi ve işe yarar notlar
         </h2>
-        <ul class="mt-8 border-t border-neutral-300 dark:border-neutral-700">
+        <ul class="mt-7 border-t border-neutral-200 dark:border-neutral-800">
           <li
             v-for="topic in topics"
             :key="topic"
-            class="flex items-center gap-3 border-b border-neutral-300 py-4 font-medium text-neutral-700 dark:border-neutral-700 dark:text-neutral-200"
+            class="flex items-center gap-3 border-b border-neutral-200 py-4 font-medium text-neutral-700 dark:border-neutral-800 dark:text-neutral-200"
           >
-            <span class="flex size-6 items-center justify-center border border-neutral-300 bg-white dark:border-neutral-700 dark:bg-neutral-900">
-              <UIcon
-                name="i-lucide-check"
-                class="size-3.5 shrink-0 text-primary"
-              />
-            </span>
+            <UIcon
+              name="i-lucide-check"
+              class="size-4 shrink-0 text-primary"
+            />
             {{ topic }}
           </li>
         </ul>
       </div>
 
-      <div class="flex flex-col justify-center border-t border-neutral-300 pt-9 dark:border-neutral-700 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
+      <div class="flex flex-col justify-center border-t border-neutral-200 pt-8 dark:border-neutral-800 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+        <p class="text-sm font-bold uppercase tracking-wider text-neutral-500">
           İletişim
         </p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight text-neutral-950 sm:text-5xl dark:text-white">
-          Bir merhaba bırak.
+        <h2 class="mt-3 text-3xl font-bold text-neutral-950 dark:text-white">
+          Bir merhaba bırak
         </h2>
-        <p class="mt-5 max-w-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+        <p class="mt-4 max-w-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
           Yazılar, projeler veya ortak ilgi alanları hakkında konuşmak için sosyal medya hesaplarımdan ulaşabilirsin.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-7 flex flex-wrap gap-3">
           <UButton
             v-for="social in SOCIAL_LINKS"
             :key="social.label"
@@ -196,7 +173,7 @@ const topics = [
         </div>
         <UButton
           to="/blogs"
-          class="mt-8 self-start"
+          class="mt-7 self-start"
           icon="i-lucide-arrow-right"
           trailing
           label="Yazıları Keşfet"

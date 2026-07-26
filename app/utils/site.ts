@@ -1,7 +1,7 @@
 export const SITE_NAME = 'Yahya Baltacı'
-export const SITE_TAGLINE = 'Yazılım, mühendislik ve hayat üzerine notlar'
+export const SITE_TAGLINE = 'Teknoloji, yaşam ve seyahat üzerine yazılar'
 export const SITE_DESCRIPTION
-  = 'İstanbul\'da bilgisayar mühendisliği okuyan Yahya Baltacı\'nın kişisel blogu. Yazılım, mühendislik, yaşam ve seyahat üzerine notlar.'
+  = 'İstanbul\'da bilgisayar mühendisliği okuyan Yahya Baltacı\'nın kişisel blogu. Teknoloji, yaşam ve seyahat üzerine samimi yazılar.'
 
 export const SOCIAL_LINKS = [
   {

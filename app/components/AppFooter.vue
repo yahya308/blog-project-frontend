@@ -11,14 +11,16 @@ const footerLinks = [
 </script>
 
 <template>
-  <footer class="mt-auto border-t border-neutral-200 bg-[#f8f8f6] dark:border-neutral-800 dark:bg-neutral-950">
+  <footer class="mt-auto border-t border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
       <div>
         <NuxtLink
           to="/"
           class="inline-flex items-center gap-3 font-bold text-neutral-950 dark:text-white"
         >
-          <AppMark />
+          <span class="flex size-9 items-center justify-center rounded-md bg-neutral-950 text-sm text-white dark:bg-white dark:text-neutral-950">
+            YB
+          </span>
           {{ SITE_NAME }}
         </NuxtLink>
         <p class="mt-4 max-w-md text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
@@ -27,7 +29,7 @@ const footerLinks = [
       </div>
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
+        <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
           Keşfet
         </p>
         <nav class="mt-4 flex flex-col items-start gap-3">
@@ -43,7 +45,7 @@ const footerLinks = [
       </div>
 
       <div>
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-neutral-400">
+        <p class="text-xs font-bold uppercase tracking-wider text-neutral-400">
           Bağlantılar
         </p>
         <div class="mt-4 flex flex-col items-start gap-3">

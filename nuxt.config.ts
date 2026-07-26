@@ -14,23 +14,10 @@ export default defineNuxtConfig({
       meta: [
         {
           name: 'description',
-          content: 'Yazılım, mühendislik, yaşam ve seyahat üzerine kişisel notlar.'
+          content: 'Teknoloji, yaşam ve seyahat üzerine kişisel yazılar.'
         }
       ],
       link: [
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
-        },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossorigin: ''
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&display=swap'
-        },
         {
           rel: 'icon',
           type: 'image/png',
