@@ -131,21 +131,25 @@ defineExpose({
       class="flex-1"
     >
       <template #actions-cell="{ row }">
-        <div class="flex items-center gap-1">
+        <div class="flex min-w-52 items-center justify-end gap-2">
           <UButton
             icon="i-lucide-pencil"
-            color="neutral"
-            variant="ghost"
-            size="sm"
+            label="Düzenle"
+            color="primary"
+            variant="solid"
+            size="md"
+            class="min-h-10 min-w-24 justify-center font-semibold shadow-sm"
             :aria-label="`${row.original.name} kategorisini düzenle`"
             :title="`${row.original.name} kategorisini düzenle`"
             @click="openEditDialog(row.original)"
           />
           <UButton
             icon="i-lucide-trash-2"
+            label="Sil"
             color="error"
-            variant="ghost"
-            size="sm"
+            variant="solid"
+            size="md"
+            class="min-h-10 min-w-20 justify-center font-semibold shadow-sm"
             :aria-label="`${row.original.name} kategorisini sil`"
             :title="`${row.original.name} kategorisini sil`"
             @click="openDeleteModal(row.original)"
