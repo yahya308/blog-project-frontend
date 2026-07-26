@@ -46,6 +46,19 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  icon: {
+    clientBundle: {
+      // Dynamic :name bindings are not auto-scanned into the client bundle.
+      icons: [
+        'lucide:map-pin',
+        'lucide:graduation-cap',
+        'lucide:radar',
+        'lucide:code-2',
+        'lucide:plane'
+      ]
+    }
+  },
+
   runtimeConfig: {
     backendOrigin: 'http://localhost:5000',
 

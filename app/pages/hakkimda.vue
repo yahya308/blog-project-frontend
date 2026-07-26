@@ -87,7 +87,7 @@ const topics = [
           <span class="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/10">
             <UIcon
               :name="fact.icon"
-              class="size-[1.125rem]"
+              class="size-4"
             />
           </span>
           <div>
