@@ -27,7 +27,7 @@ export function useApiClient() {
         ...forwardedHeaders,
         ...(options.headers as Record<string, string> | undefined)
       }
-    })
+    }) as T
   }
 
   return {
