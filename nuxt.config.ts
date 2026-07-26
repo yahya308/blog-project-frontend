@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@pinia/nuxt', '@vercel/analytics/nuxt'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui',
+    '@pinia/nuxt',
+    '@vercel/analytics/nuxt',
+    '@nuxtjs/sitemap'
+  ],
 
   devtools: {
     enabled: true
@@ -15,6 +21,10 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content: 'Teknoloji, yaşam ve seyahat üzerine kişisel yazılar.'
+        },
+        {
+          name: 'google-site-verification',
+          content: '3o108XaHMpyf69WML5P--M9xfT11uWxBgP6keFk_a1o'
         }
       ],
       link: [
@@ -46,6 +56,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  site: {
+    url: 'https://yahyabaltaci.co'
+  },
+
   icon: {
     clientBundle: {
       // Dynamic :name bindings are not auto-scanned into the client bundle.
@@ -65,6 +79,11 @@ export default defineNuxtConfig({
     public: {
       apiBase: 'http://localhost:5000/api'
     }
+  },
+
+  sitemap: {
+    exclude: ['/admin/**'],
+    sources: ['/api/__sitemap__/urls']
   },
 
   compatibilityDate: '2026-06-30',

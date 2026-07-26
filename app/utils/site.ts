@@ -1,4 +1,5 @@
 export const SITE_NAME = 'Yahya Baltacı'
+export const SITE_URL = 'https://yahyabaltaci.co'
 export const SITE_TAGLINE = 'Teknoloji, yaşam ve seyahat üzerine yazılar'
 export const SITE_DESCRIPTION
   = 'İstanbul\'da bilgisayar mühendisliği okuyan Yahya Baltacı\'nın kişisel blogu. Teknoloji, yaşam ve seyahat üzerine samimi yazılar.'
