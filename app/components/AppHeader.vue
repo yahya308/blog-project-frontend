@@ -41,9 +41,14 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         class="group flex min-w-0 items-center gap-3"
         aria-label="Ana sayfa"
       >
-        <span class="flex size-9 shrink-0 items-center justify-center rounded-md bg-neutral-950 text-sm font-bold text-white transition group-hover:bg-primary dark:bg-white dark:text-neutral-950">
-          YB
-        </span>
+        <img
+          src="/icon-512.png"
+          alt=""
+          width="36"
+          height="36"
+          aria-hidden="true"
+          class="size-9 shrink-0 rounded-md object-cover shadow-sm transition-transform duration-200 group-hover:scale-105"
+        >
         <span class="truncate text-base font-bold text-neutral-950 dark:text-white sm:text-lg">
           {{ SITE_NAME }}
         </span>
