@@ -1,64 +1,89 @@
-# Nuxt Starter Template
+# Blog Frontend
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Yahya Baltacı kişisel blog sitesinin Nuxt frontend uygulaması.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+Canlı site: [yahyabaltaci.co](https://yahyabaltaci.co)
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Özellikler
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+- Ana sayfa, yazı listesi, yazı detayı ve hakkımda sayfaları
+- Admin paneli (giriş, dashboard, yazı/kategori yönetimi, taslaklar)
+- SSR ile API erişimi
+- `@nuxt/image` ile görsel optimizasyonu
+- Sitemap, robots.txt ve Vercel Analytics
+- Açık/koyu tema
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## Teknolojiler
 
-## Quick Start
+- Nuxt 4
+- Nuxt UI + Tailwind CSS
+- Pinia
+- TypeScript
+- Vercel
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
+## Gereksinimler
 
-## Deploy your own
+- Node.js 22.x
+- npm
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
-
-## Setup
-
-Make sure to install the dependencies:
+## Kurulum
 
 ```bash
-pnpm install
+npm install
 ```
 
-## Development Server
+`.env` dosyası oluştur:
 
-Start the development server on `http://localhost:3000`:
+```env
+NUXT_PUBLIC_API_BASE=http://localhost:5000/api
+NUXT_BACKEND_ORIGIN=http://localhost:5000
+```
+
+| Değişken | Açıklama |
+|---|---|
+| `NUXT_PUBLIC_API_BASE` | Tarayıcıdan kullanılan API adresi |
+| `NUXT_BACKEND_ORIGIN` | SSR sırasında kullanılan backend origin (`/api` olmadan) |
+
+## Geliştirme
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
-## Production
+Uygulama varsayılan olarak `http://localhost:3000` adresinde açılır.
 
-Build the application for production:
+## Scriptler
 
-```bash
-pnpm build
+| Komut | Açıklama |
+|---|---|
+| `npm run dev` | Geliştirme sunucusu |
+| `npm run build` | Production build |
+| `npm run preview` | Build önizleme |
+| `npm run start` | Production sunucusu |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript kontrolü |
+
+## Production ortam değişkenleri
+
+Vercel (veya benzeri) üzerinde en az şunları tanımla:
+
+```env
+NUXT_PUBLIC_API_BASE=https://api.yahyabaltaci.co/api
+NUXT_BACKEND_ORIGIN=https://api.yahyabaltaci.co
 ```
 
-Locally preview production build:
+## Proje yapısı
 
-```bash
-pnpm preview
+```text
+app/
+  components/   # UI bileşenleri
+  composables/  # API ve auth yardımcıları
+  pages/        # Rotalar (public + admin)
+  utils/        # Ortak yardımcılar
+public/         # Statik dosyalar
+server/         # Nitro sunucu rotaları (sitemap)
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## İlişkili repo
 
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+Backend: [blog-project-backend](https://github.com/yahya308/blog-project-backend)
