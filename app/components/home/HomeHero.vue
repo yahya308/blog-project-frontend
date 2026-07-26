@@ -6,25 +6,44 @@ defineProps<{
   featuredBlog?: Blog | null
   loading?: boolean
 }>()
+
+useHead({
+  link: [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: '/images/hero-768.webp',
+      type: 'image/webp',
+      media: '(max-width: 768px)',
+      fetchpriority: 'high'
+    },
+    {
+      rel: 'preload',
+      as: 'image',
+      href: '/images/hero-1280.webp',
+      type: 'image/webp',
+      media: '(min-width: 769px)',
+      fetchpriority: 'high'
+    }
+  ]
+})
 </script>
 
 <template>
   <section class="relative min-h-[clamp(31rem,72svh,40rem)] overflow-hidden bg-neutral-900 text-white">
-    <NuxtImg
-      src="/images/hero-fallback.jpg"
+    <img
+      src="/images/hero-1280.webp"
+      srcset="/images/hero-768.webp 768w, /images/hero-1280.webp 1280w, /images/hero-1600.webp 1600w"
+      sizes="100vw"
       alt=""
       aria-hidden="true"
       width="1600"
       height="900"
-      sizes="100vw"
-      densities="1"
-      format="webp"
-      quality="72"
       loading="eager"
       fetchpriority="high"
-      preload
+      decoding="async"
       class="absolute inset-0 size-full scale-[1.015] object-cover object-center"
-    />
+    >
     <div class="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/80 to-neutral-950/35" />
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
     <div class="absolute -right-28 top-12 size-[28rem] rounded-full bg-primary/10 blur-3xl" />
