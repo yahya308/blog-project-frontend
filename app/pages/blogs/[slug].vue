@@ -73,9 +73,14 @@ useSeoMeta({
   ogDescription: seoDescription,
   ogImage: () => blog.value?.coverImage || undefined,
   ogType: 'article',
-  twitterCard: 'summary_large_image',
-  keywords: () => blog.value?.seoKeywords || undefined
+  twitterCard: 'summary_large_image'
 })
+
+useHead(() => ({
+  meta: blog.value?.seoKeywords
+    ? [{ name: 'keywords', content: blog.value.seoKeywords }]
+    : []
+}))
 
 function formatDate(value?: string | null) {
   if (!value) return ''
