@@ -63,7 +63,7 @@ function formatDate(value?: string | null) {
         src="/images/blog-fallback.jpg"
         alt=""
         aria-hidden="true"
-        class="aspect-[16/9] w-full object-cover"
+        class="aspect-video w-full object-cover"
         width="720"
         height="405"
         loading="lazy"
@@ -87,7 +87,7 @@ function formatDate(value?: string | null) {
         @load="imageLoaded = true"
         @error="imageError = true"
       >
-      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
     </NuxtLink>
 
     <div class="flex flex-1 flex-col p-5 sm:p-6">

@@ -37,13 +37,13 @@ useHead({
       decoding="async"
       class="absolute inset-0 size-full scale-[1.015] object-cover object-center"
     >
-    <div class="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/80 to-neutral-950/35" />
-    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
-    <div class="absolute -right-28 top-12 size-[28rem] rounded-full bg-primary/10 blur-3xl" />
+    <div class="absolute inset-0 bg-linear-to-r from-neutral-950 via-neutral-950/80 to-neutral-950/35" />
+    <div class="absolute inset-0 bg-linear-to-t from-neutral-950/70 via-transparent to-neutral-950/20" />
+    <div class="absolute -right-28 top-12 size-112 rounded-full bg-primary/10 blur-3xl" />
 
     <div class="relative mx-auto flex min-h-[clamp(31rem,72svh,40rem)] max-w-6xl flex-col justify-between px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
       <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white/75 backdrop-blur-sm">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-white/75 backdrop-blur-sm">
           <span class="size-1.5 rounded-full bg-primary" />
           Kişisel blog
         </div>
@@ -71,7 +71,7 @@ useHead({
             variant="outline"
             icon="i-lucide-user"
             label="Hakkımda"
-            class="border-white/30 bg-white/[0.04] text-white hover:bg-white/10"
+            class="border-white/30 bg-white/4 text-white hover:bg-white/10"
           />
         </div>
       </div>
@@ -95,7 +95,7 @@ useHead({
             {{ featuredBlog.excerpt }}
           </p>
         </div>
-        <span class="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] transition group-hover:border-white/30 group-hover:bg-white/10">
+        <span class="mb-1 flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 transition group-hover:border-white/30 group-hover:bg-white/10">
           <UIcon
             name="i-lucide-arrow-up-right"
             class="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

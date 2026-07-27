@@ -46,7 +46,7 @@ defineEmits<{
         :key="index"
         class="overflow-hidden rounded-xl border border-neutral-200/80 dark:border-neutral-800/80"
       >
-        <div class="aspect-[16/9] animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+        <div class="aspect-video animate-pulse bg-neutral-200 dark:bg-neutral-800" />
         <div class="space-y-3 p-6">
           <div class="flex gap-2">
             <div class="h-5 w-16 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-800" />
