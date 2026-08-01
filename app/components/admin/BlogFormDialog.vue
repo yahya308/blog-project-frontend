@@ -232,32 +232,32 @@ async function loadBlog(id: string) {
     form.content = blog.content
     form.excerpt = blog.excerpt ?? ''
     form.coverImage = blog.coverImage ?? ''
-    form.seoTitle =
-      blog.seoTitle ?? blog.title
-    form.seoDescription =
-      blog.seoDescription ?? ''
-    form.seoKeywords =
-      blog.seoKeywords ?? ''
-    form.authorName =
-      blog.authorName
-      ?? blog.author?.name
-      ?? ''
+    form.seoTitle
+      = blog.seoTitle ?? blog.title
+    form.seoDescription
+      = blog.seoDescription ?? ''
+    form.seoKeywords
+      = blog.seoKeywords ?? ''
+    form.authorName
+      = blog.authorName
+        ?? blog.author?.name
+        ?? ''
     form.status = blog.status
 
     form.publishedAt = blog.publishedAt
       ? new Date(blog.publishedAt)
-        .toISOString()
-        .slice(0, 16)
+          .toISOString()
+          .slice(0, 16)
       : ''
 
-    form.categoryIds =
-      blog.categories?.map(
+    form.categoryIds
+      = blog.categories?.map(
         category => category.id
       ) ?? []
 
     slugManuallyEdited.value = false
-    seoTitleManuallyEdited.value =
-      Boolean(blog.seoTitle)
+    seoTitleManuallyEdited.value
+      = Boolean(blog.seoTitle)
   } catch {
     toast.add({
       title: 'Blog yüklenemedi',
@@ -373,8 +373,8 @@ function buildPayload() {
     status: form.status,
     publishedAt: form.publishedAt
       ? new Date(
-        form.publishedAt
-      ).toISOString()
+          form.publishedAt
+        ).toISOString()
       : null,
     categoryIds: form.categoryIds
   }
@@ -388,8 +388,8 @@ async function handleGenerateWithAi() {
   const prompt = aiPrompt.value.trim()
 
   if (!prompt) {
-    aiError.value =
-      'AI için blog konusunu veya isteğini yazmalısınız.'
+    aiError.value
+      = 'AI için blog konusunu veya isteğini yazmalısınız.'
 
     toast.add({
       title: 'Prompt gerekli',
@@ -408,8 +408,8 @@ async function handleGenerateWithAi() {
   aiError.value = ''
 
   try {
-    const draft =
-      await generateBlogDraft(prompt)
+    const draft
+      = await generateBlogDraft(prompt)
 
     /*
      * AI başlığı forma yazıldığında slug'ın
@@ -428,15 +428,15 @@ async function handleGenerateWithAi() {
     form.title = draft.title
     form.content = draft.contentHtml
     form.excerpt = draft.excerpt
-    form.coverImage =
-      draft.coverImageUrl ?? ''
+    form.coverImage
+      = draft.coverImageUrl ?? ''
     form.seoTitle = draft.seoTitle
-    form.seoDescription =
-      draft.seoDescription
-    form.seoKeywords =
-      draft.seoKeywords.join(', ')
-    form.categoryIds =
-      draft.categoryIds
+    form.seoDescription
+      = draft.seoDescription
+    form.seoKeywords
+      = draft.seoKeywords.join(', ')
+    form.categoryIds
+      = draft.categoryIds
 
     /*
      * Watcher'ın çalışma zamanından bağımsız
@@ -458,8 +458,8 @@ async function handleGenerateWithAi() {
       error
     )
 
-    aiError.value =
-      'AI blog taslağı oluşturulurken bir hata meydana geldi.'
+    aiError.value
+      = 'AI blog taslağı oluşturulurken bir hata meydana geldi.'
 
     toast.add({
       title: 'AI üretimi başarısız',
@@ -562,20 +562,39 @@ async function handleSubmit(
 </script>
 
 <template>
-  <UModal v-model:open="open" :title="modalTitle" scrollable :dismissible="!submitting && !aiGenerating
-    " :ui="{ content: 'max-w-5xl' }">
+  <UModal
+    v-model:open="open"
+    :title="modalTitle"
+    scrollable
+    :dismissible="!submitting && !aiGenerating
+    "
+    :ui="{ content: 'max-w-5xl' }"
+  >
     <template #body>
-      <div v-if="loading" class="flex items-center justify-center py-16">
-        <UIcon name="i-lucide-loader-circle" class="size-6 animate-spin text-muted" />
+      <div
+        v-if="loading"
+        class="flex items-center justify-center py-16"
+      >
+        <UIcon
+          name="i-lucide-loader-circle"
+          class="size-6 animate-spin text-muted"
+        />
       </div>
 
-      <form v-else class="min-w-0 max-h-[70vh] overflow-x-hidden overflow-y-auto pr-1" @submit.prevent="handleSubmit()">
+      <form
+        v-else
+        class="min-w-0 max-h-[70vh] overflow-x-hidden overflow-y-auto pr-1"
+        @submit.prevent="handleSubmit()"
+      >
         <div class="grid min-w-0 gap-6 lg:grid-cols-3">
           <div class="min-w-0 space-y-6 lg:col-span-2">
             <UCard v-if="mode === 'create'">
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-sparkles" class="size-4 text-primary" />
+                  <UIcon
+                    name="i-lucide-sparkles"
+                    class="size-4 text-primary"
+                  />
 
                   <span class="font-medium">
                     AI ile Blog Oluştur
@@ -584,24 +603,41 @@ async function handleSubmit(
               </template>
 
               <div class="space-y-4">
-                <UFormField label="Blog İsteği" name="aiPrompt"
-                  help="Blogun konusunu, hedef kitlesini ve istediğiniz ayrıntıları yazın.">
-                  <UTextarea v-model="aiPrompt"
+                <UFormField
+                  label="Blog İsteği"
+                  name="aiPrompt"
+                  help="Blogun konusunu, hedef kitlesini ve istediğiniz ayrıntıları yazın."
+                >
+                  <UTextarea
+                    v-model="aiPrompt"
                     placeholder="Örn: Nuxt SSR ve cookie yönetimi hakkında teknik, kapsamlı ve kod örnekleri içeren bir blog oluştur."
-                    :rows="4" autoresize class="w-full" :disabled="aiGenerating" />
+                    :rows="4"
+                    autoresize
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <div v-if="aiError" class="rounded-lg border border-error/30 bg-error/10 px-4 py-3 text-sm text-error"
-                  role="alert">
+                <div
+                  v-if="aiError"
+                  class="rounded-lg border border-error/30 bg-error/10 px-4 py-3 text-sm text-error"
+                  role="alert"
+                >
                   {{ aiError }}
                 </div>
 
                 <div class="flex justify-end">
-                  <UButton type="button" icon="i-lucide-sparkles" label="AI ile Taslak Oluştur" :loading="aiGenerating"
+                  <UButton
+                    type="button"
+                    icon="i-lucide-sparkles"
+                    label="AI ile Taslak Oluştur"
+                    :loading="aiGenerating"
                     :disabled="!aiPrompt.trim()
                       || aiGenerating
                       || submitting
-                      " @click="handleGenerateWithAi" />
+                    "
+                    @click="handleGenerateWithAi"
+                  />
                 </div>
               </div>
             </UCard>
@@ -609,7 +645,10 @@ async function handleSubmit(
             <UCard>
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-image" class="size-4 text-muted" />
+                  <UIcon
+                    name="i-lucide-image"
+                    class="size-4 text-muted"
+                  />
 
                   <span class="font-medium">
                     Kapak Fotoğrafı
@@ -618,31 +657,58 @@ async function handleSubmit(
               </template>
 
               <div class="space-y-4">
-                <UFormField label="Görsel URL" name="coverImage"
-                  help="Blog sayfasının en üstünde görünecek kapak fotoğrafı.">
-                  <UInput v-model="form.coverImage" placeholder="https://..." icon="i-lucide-link" class="w-full"
-                    :disabled="aiGenerating" />
+                <UFormField
+                  label="Görsel URL"
+                  name="coverImage"
+                  help="Blog sayfasının en üstünde görünecek kapak fotoğrafı."
+                >
+                  <UInput
+                    v-model="form.coverImage"
+                    placeholder="https://..."
+                    icon="i-lucide-link"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <div v-if="form.coverImage"
-                  class="flex h-64 items-center justify-center overflow-hidden rounded-xl border border-default bg-elevated/50 sm:h-80">
-                  <img v-if="!coverPreviewFailed" :src="form.coverImage" alt="Kapak fotoğrafı önizlemesi"
-                    class="h-full w-full object-contain" @error="
+                <div
+                  v-if="form.coverImage"
+                  class="flex h-64 items-center justify-center overflow-hidden rounded-xl border border-default bg-elevated/50 sm:h-80"
+                >
+                  <img
+                    v-if="!coverPreviewFailed"
+                    :src="form.coverImage"
+                    alt="Kapak fotoğrafı önizlemesi"
+                    class="h-full w-full object-contain"
+                    @error="
                       coverPreviewFailed = true
-                      ">
+                    "
+                  >
 
-                  <div v-else class="px-6 text-center text-sm text-muted" role="status">
-                    <UIcon name="i-lucide-image-off" class="mx-auto mb-2 size-7" />
+                  <div
+                    v-else
+                    class="px-6 text-center text-sm text-muted"
+                    role="status"
+                  >
+                    <UIcon
+                      name="i-lucide-image-off"
+                      class="mx-auto mb-2 size-7"
+                    />
 
                     Görsel yüklenemedi. URL
                     adresini kontrol edin.
                   </div>
                 </div>
 
-                <div v-else
-                  class="flex h-64 items-center justify-center rounded-xl border border-dashed border-default bg-elevated/50 sm:h-80">
+                <div
+                  v-else
+                  class="flex h-64 items-center justify-center rounded-xl border border-dashed border-default bg-elevated/50 sm:h-80"
+                >
                   <div class="text-center text-sm text-muted">
-                    <UIcon name="i-lucide-image-plus" class="mx-auto mb-2 size-6" />
+                    <UIcon
+                      name="i-lucide-image-plus"
+                      class="mx-auto mb-2 size-6"
+                    />
 
                     Kapak fotoğrafı
                     önizlemesi
@@ -653,26 +719,56 @@ async function handleSubmit(
 
             <UCard>
               <div class="space-y-5">
-                <UFormField label="Başlık" name="title" required>
-                  <UInput v-model="form.title" placeholder="Blog yazınızın başlığı" size="lg" class="w-full"
-                    :disabled="aiGenerating" />
+                <UFormField
+                  label="Başlık"
+                  name="title"
+                  required
+                >
+                  <UInput
+                    v-model="form.title"
+                    placeholder="Blog yazınızın başlığı"
+                    size="lg"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <UFormField label="Slug" name="slug" required
-                  help="URL'de görünecek kısa adres. Başlıktan otomatik oluşturulur.">
-                  <UInput v-model="form.slug" placeholder="ornek-blog-yazisi" icon="i-lucide-link" class="w-full"
-                    :disabled="aiGenerating" @input="onSlugInput" />
+                <UFormField
+                  label="Slug"
+                  name="slug"
+                  required
+                  help="URL'de görünecek kısa adres. Başlıktan otomatik oluşturulur."
+                >
+                  <UInput
+                    v-model="form.slug"
+                    placeholder="ornek-blog-yazisi"
+                    icon="i-lucide-link"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                    @input="onSlugInput"
+                  />
                 </UFormField>
               </div>
             </UCard>
 
             <UCard>
-              <UFormField label="İçerik" name="content" required>
-                <UEditor v-slot="{ editor }" v-model="form.content" content-type="html"
+              <UFormField
+                label="İçerik"
+                name="content"
+                required
+              >
+                <UEditor
+                  v-slot="{ editor }"
+                  v-model="form.content"
+                  content-type="html"
                   placeholder="Blog içeriğinizi buraya yazın..."
-                  class="min-h-80 w-full min-w-0 rounded-lg border border-default">
-                  <UEditorToolbar :editor="editor" :items="toolbarItems"
-                    class="flex-wrap rounded-t-lg border-b border-default" />
+                  class="min-h-80 w-full min-w-0 rounded-lg border border-default"
+                >
+                  <UEditorToolbar
+                    :editor="editor"
+                    :items="toolbarItems"
+                    class="flex-wrap rounded-t-lg border-b border-default"
+                  />
                 </UEditor>
               </UFormField>
             </UCard>
@@ -682,7 +778,10 @@ async function handleSubmit(
             <UCard>
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-settings-2" class="size-4 text-muted" />
+                  <UIcon
+                    name="i-lucide-settings-2"
+                    class="size-4 text-muted"
+                  />
 
                   <span class="font-medium">
                     Yayın Ayarları
@@ -691,19 +790,47 @@ async function handleSubmit(
               </template>
 
               <div class="space-y-5">
-                <UFormField label="Yazar Adı" name="authorName" required help="Blog sayfasında görünecek yazar ismi.">
-                  <UInput v-model="form.authorName" placeholder="Örn: Yahya Baltacı" icon="i-lucide-user" class="w-full"
-                    :disabled="aiGenerating" />
+                <UFormField
+                  label="Yazar Adı"
+                  name="authorName"
+                  required
+                  help="Blog sayfasında görünecek yazar ismi."
+                >
+                  <UInput
+                    v-model="form.authorName"
+                    placeholder="Örn: Yahya Baltacı"
+                    icon="i-lucide-user"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <UFormField label="Durum" name="status">
-                  <USelectMenu v-model="form.status" value-key="value" :items="statusOptions" class="w-full"
-                    :disabled="aiGenerating" />
+                <UFormField
+                  label="Durum"
+                  name="status"
+                >
+                  <USelectMenu
+                    v-model="form.status"
+                    value-key="value"
+                    :items="statusOptions"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <UFormField v-if="showPublishedAt" label="Yayın Tarihi" name="publishedAt" required>
-                  <UInput v-model="form.publishedAt" type="datetime-local" icon="i-lucide-calendar-clock" class="w-full"
-                    :disabled="aiGenerating" />
+                <UFormField
+                  v-if="showPublishedAt"
+                  label="Yayın Tarihi"
+                  name="publishedAt"
+                  required
+                >
+                  <UInput
+                    v-model="form.publishedAt"
+                    type="datetime-local"
+                    icon="i-lucide-calendar-clock"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
               </div>
             </UCard>
@@ -711,7 +838,10 @@ async function handleSubmit(
             <UCard>
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-search" class="size-4 text-muted" />
+                  <UIcon
+                    name="i-lucide-search"
+                    class="size-4 text-muted"
+                  />
 
                   <span class="font-medium">
                     SEO Ayarları
@@ -720,21 +850,47 @@ async function handleSubmit(
               </template>
 
               <div class="space-y-5">
-                <UFormField label="SEO Başlığı" name="seoTitle" help="Boş bırakılırsa blog başlığı kullanılır.">
-                  <UInput v-model="form.seoTitle" placeholder="Arama motorlarında görünecek başlık" class="w-full"
-                    :disabled="aiGenerating" @input="onSeoTitleInput" />
+                <UFormField
+                  label="SEO Başlığı"
+                  name="seoTitle"
+                  help="Boş bırakılırsa blog başlığı kullanılır."
+                >
+                  <UInput
+                    v-model="form.seoTitle"
+                    placeholder="Arama motorlarında görünecek başlık"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                    @input="onSeoTitleInput"
+                  />
                 </UFormField>
 
-                <UFormField label="SEO Açıklaması" name="seoDescription"
-                  help="Boş bırakılırsa özet kullanılır. 150-160 karakter önerilir.">
-                  <UTextarea v-model="form.seoDescription" placeholder="Arama sonuçlarında görünecek açıklama" :rows="3"
-                    autoresize class="w-full" :disabled="aiGenerating" />
+                <UFormField
+                  label="SEO Açıklaması"
+                  name="seoDescription"
+                  help="Boş bırakılırsa özet kullanılır. 150-160 karakter önerilir."
+                >
+                  <UTextarea
+                    v-model="form.seoDescription"
+                    placeholder="Arama sonuçlarında görünecek açıklama"
+                    :rows="3"
+                    autoresize
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
 
-                <UFormField label="Anahtar Kelimeler" name="seoKeywords"
-                  help="Virgülle ayırarak girin. Örn: teknoloji, yazılım, blog">
-                  <UInput v-model="form.seoKeywords" placeholder="anahtar, kelime, listesi" icon="i-lucide-tags"
-                    class="w-full" :disabled="aiGenerating" />
+                <UFormField
+                  label="Anahtar Kelimeler"
+                  name="seoKeywords"
+                  help="Virgülle ayırarak girin. Örn: teknoloji, yazılım, blog"
+                >
+                  <UInput
+                    v-model="form.seoKeywords"
+                    placeholder="anahtar, kelime, listesi"
+                    icon="i-lucide-tags"
+                    class="w-full"
+                    :disabled="aiGenerating"
+                  />
                 </UFormField>
               </div>
             </UCard>
@@ -742,7 +898,10 @@ async function handleSubmit(
             <UCard>
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-text" class="size-4 text-muted" />
+                  <UIcon
+                    name="i-lucide-text"
+                    class="size-4 text-muted"
+                  />
 
                   <span class="font-medium">
                     Özet
@@ -750,17 +909,29 @@ async function handleSubmit(
                 </div>
               </template>
 
-              <UFormField label="Kısa Açıklama" name="excerpt"
-                help="Liste ve arama sonuçlarında görünür. Boş bırakılabilir.">
-                <UTextarea v-model="form.excerpt" placeholder="Yazının kısa özetini girin..." :rows="4" autoresize
-                  class="w-full" :disabled="aiGenerating" />
+              <UFormField
+                label="Kısa Açıklama"
+                name="excerpt"
+                help="Liste ve arama sonuçlarında görünür. Boş bırakılabilir."
+              >
+                <UTextarea
+                  v-model="form.excerpt"
+                  placeholder="Yazının kısa özetini girin..."
+                  :rows="4"
+                  autoresize
+                  class="w-full"
+                  :disabled="aiGenerating"
+                />
               </UFormField>
             </UCard>
 
             <UCard>
               <template #header>
                 <div class="flex items-center gap-2">
-                  <UIcon name="i-lucide-tags" class="size-4 text-muted" />
+                  <UIcon
+                    name="i-lucide-tags"
+                    class="size-4 text-muted"
+                  />
 
                   <span class="font-medium">
                     Kategoriler
@@ -768,10 +939,20 @@ async function handleSubmit(
                 </div>
               </template>
 
-              <UFormField label="Kategori Seçimi" name="categoryIds"
-                help="Yazıya bir veya birden fazla kategori ekleyin.">
-                <USelectMenu v-model="form.categoryIds" value-key="value" multiple :items="categoryItems"
-                  placeholder="Kategori seçin" class="w-full" :disabled="aiGenerating" />
+              <UFormField
+                label="Kategori Seçimi"
+                name="categoryIds"
+                help="Yazıya bir veya birden fazla kategori ekleyin."
+              >
+                <USelectMenu
+                  v-model="form.categoryIds"
+                  value-key="value"
+                  multiple
+                  :items="categoryItems"
+                  placeholder="Kategori seçin"
+                  class="w-full"
+                  :disabled="aiGenerating"
+                />
               </UFormField>
             </UCard>
           </div>
@@ -781,18 +962,37 @@ async function handleSubmit(
 
     <template #footer>
       <div class="flex flex-wrap justify-end gap-2">
-        <UButton variant="ghost" color="neutral" label="İptal" :disabled="submitting || aiGenerating
-          " @click="close" />
+        <UButton
+          variant="ghost"
+          color="neutral"
+          label="İptal"
+          :disabled="submitting || aiGenerating
+          "
+          @click="close"
+        />
 
-        <UButton variant="ghost" color="neutral" icon="i-lucide-save" label="Taslak Kaydet" :loading="submitting"
-          :disabled="aiGenerating" @click="handleSubmit('DRAFT')" />
+        <UButton
+          variant="ghost"
+          color="neutral"
+          icon="i-lucide-save"
+          label="Taslak Kaydet"
+          :loading="submitting"
+          :disabled="aiGenerating"
+          @click="handleSubmit('DRAFT')"
+        />
 
-        <UButton icon="i-lucide-send" :label="mode === 'edit'
+        <UButton
+          icon="i-lucide-send"
+          :label="mode === 'edit'
             ? 'Güncelle'
             : 'Yayınla'
-          " :loading="submitting" :disabled="aiGenerating" @click="
+          "
+          :loading="submitting"
+          :disabled="aiGenerating"
+          @click="
             handleSubmit('PUBLISHED')
-            " />
+          "
+        />
       </div>
     </template>
   </UModal>
