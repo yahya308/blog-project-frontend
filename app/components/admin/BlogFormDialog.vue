@@ -50,6 +50,7 @@ const seoTitleManuallyEdited = ref(false)
 const coverPreviewFailed = ref(false)
 const loading = ref(false)
 const submitting = ref(false)
+const contentEditorMode = ref<'visual' | 'html'>('visual')
 
 const statusOptions: SelectMenuItem[] = [
   { label: 'Taslak', value: 'DRAFT' },
@@ -752,12 +753,49 @@ async function handleSubmit(
             </UCard>
 
             <UCard>
+              <template #header>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <UIcon
+                      name="i-lucide-file-text"
+                      class="size-4 text-muted"
+                    />
+
+                    <span class="font-medium">
+                      İçerik
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-1 rounded-lg bg-elevated p-1">
+                    <UButton
+                      type="button"
+                      size="xs"
+                      icon="i-lucide-panel-top"
+                      label="Görsel"
+                      :variant="contentEditorMode === 'visual' ? 'solid' : 'ghost'"
+                      :color="contentEditorMode === 'visual' ? 'primary' : 'neutral'"
+                      @click="contentEditorMode = 'visual'"
+                    />
+
+                    <UButton
+                      type="button"
+                      size="xs"
+                      icon="i-lucide-code-xml"
+                      label="HTML"
+                      :variant="contentEditorMode === 'html' ? 'solid' : 'ghost'"
+                      :color="contentEditorMode === 'html' ? 'primary' : 'neutral'"
+                      @click="contentEditorMode = 'html'"
+                    />
+                  </div>
+                </div>
+              </template>
+
               <UFormField
-                label="İçerik"
                 name="content"
                 required
               >
                 <UEditor
+                  v-if="contentEditorMode === 'visual'"
                   v-slot="{ editor }"
                   v-model="form.content"
                   content-type="html"
@@ -770,7 +808,25 @@ async function handleSubmit(
                     class="flex-wrap rounded-t-lg border-b border-default"
                   />
                 </UEditor>
+
+                <UTextarea
+                  v-else
+                  v-model="form.content"
+                  :rows="28"
+                  autoresize
+                  spellcheck="false"
+                  placeholder="<h2>Blog başlığı</h2><p>İçerik...</p>"
+                  class="w-full font-mono text-sm"
+                />
               </UFormField>
+
+              <p
+                v-if="contentEditorMode === 'html'"
+                class="mt-3 text-xs text-muted"
+              >
+                Ham HTML içeriğini bu alana yapıştırın. Görsel editöre geçtiğinizde
+                HTML işlenmiş biçimde gösterilir.
+              </p>
             </UCard>
           </div>
 
