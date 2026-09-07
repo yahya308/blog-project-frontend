@@ -98,6 +98,7 @@ export interface GeneratedBlogDraft {
   contentHtml: string
   coverImageQuery: string
   coverImageUrl: string | null
+  warnings?: string[]
   seoTitle: string
   seoDescription: string
   seoKeywords: string[]

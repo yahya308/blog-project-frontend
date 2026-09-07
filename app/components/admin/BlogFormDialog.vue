@@ -44,6 +44,7 @@ const form = reactive<BlogFormState>({
 const aiPrompt = ref('')
 const aiGenerating = ref(false)
 const aiError = ref('')
+const aiWarnings = ref<string[]>([])
 
 const slugManuallyEdited = ref(false)
 const seoTitleManuallyEdited = ref(false)
@@ -298,6 +299,7 @@ function resetForm() {
   aiPrompt.value = ''
   aiGenerating.value = false
   aiError.value = ''
+  aiWarnings.value = []
 
   slugManuallyEdited.value = false
   seoTitleManuallyEdited.value = false
@@ -407,10 +409,12 @@ async function handleGenerateWithAi() {
 
   aiGenerating.value = true
   aiError.value = ''
+  aiWarnings.value = []
 
   try {
     const draft
       = await generateBlogDraft(prompt)
+    aiWarnings.value = draft.warnings ?? []
 
     /*
      * AI başlığı forma yazıldığında slug'ın
@@ -459,8 +463,13 @@ async function handleGenerateWithAi() {
       error
     )
 
-    aiError.value
-      = 'AI blog taslağı oluşturulurken bir hata meydana geldi.'
+    const responseData = error && typeof error === 'object' && 'data' in error
+      ? error.data
+      : undefined
+    aiError.value = responseData && typeof responseData === 'object'
+      && 'message' in responseData && typeof responseData.message === 'string'
+      ? responseData.message
+      : 'AI blog taslağı oluşturulurken bir hata meydana geldi.'
 
     toast.add({
       title: 'AI üretimi başarısız',
@@ -607,11 +616,12 @@ async function handleSubmit(
                 <UFormField
                   label="Blog İsteği"
                   name="aiPrompt"
-                  help="Blogun konusunu, hedef kitlesini ve istediğiniz ayrıntıları yazın."
+                  help="Konuyu kendi cümlelerinizle anlatın. İsterseniz tonu, uzunluğu ve yer vermek istediğiniz gerçek ayrıntıları ekleyin."
                 >
                   <UTextarea
                     v-model="aiPrompt"
-                    placeholder="Örn: Nuxt SSR ve cookie yönetimi hakkında teknik, kapsamlı ve kod örnekleri içeren bir blog oluştur."
+                    placeholder="Örn: Stajımın son günü geride kaldı. Bana çok şey kattı. Bu deneyimi anlatan kısa ve samimi bir blog yazısı hazırla."
+                    :maxlength="6000"
                     :rows="4"
                     autoresize
                     class="w-full"
@@ -626,6 +636,14 @@ async function handleSubmit(
                 >
                   {{ aiError }}
                 </div>
+
+                <UAlert
+                  v-if="aiWarnings.length"
+                  color="warning"
+                  variant="subtle"
+                  title="Taslak hazır, görselleri kontrol edin"
+                  :description="aiWarnings.join(' ')"
+                />
 
                 <div class="flex justify-end">
                   <UButton
