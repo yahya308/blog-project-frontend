@@ -1,5 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.yahyabaltaci.co" }],
+      "destination": "https://yahyabaltaci.co/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/blogs/:path*",

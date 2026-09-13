@@ -21,11 +21,12 @@ const {
 } = await useAsyncData(`blog-page-${blogSlug.value}`, async () => {
   const [currentBlog, publishedBlogs] = await Promise.all([
     getPublishedBlogBySlug(blogSlug.value),
-    getPublishedBlogs()
+    // Recommendations are optional and must not make an existing article fail.
+    getPublishedBlogs().catch(() => [] as Blog[])
   ])
 
   if (currentBlog.status !== 'PUBLISHED') {
-    throw createError({ statusCode: 404, statusMessage: 'Blog bulunamadı' })
+    throw createError({ statusCode: 404, statusMessage: 'Not Found' })
   }
 
   const categoryIds = new Set(currentBlog.categories?.map(category => category.id) ?? [])
@@ -41,9 +42,21 @@ const {
   }
 })
 
+// useAsyncData stores errors instead of setting the HTTP response status.
+if (pageError.value || !pageData.value?.blog) {
+  const upstreamStatus = pageError.value?.statusCode
+  const statusCode = upstreamStatus === 404
+    ? 404
+    : upstreamStatus && upstreamStatus >= 500 && upstreamStatus <= 599 ? upstreamStatus : 503
+
+  throw createError({
+    statusCode,
+    statusMessage: statusCode === 404 ? 'Not Found' : 'Service Unavailable'
+  })
+}
+
 const blog = computed<Blog | null>(() => pageData.value?.blog ?? null)
 const relatedBlogs = computed(() => pageData.value?.relatedBlogs ?? [])
-const notFound = computed(() => Boolean(pageError.value) || (!loading.value && !blog.value))
 const authorName = computed(() => blog.value ? getBlogAuthorName(blog.value) : '')
 
 const readingMinutes = computed(() => {
@@ -177,31 +190,8 @@ onUnmounted(() => {
       <div class="mt-10 aspect-[16/9] animate-pulse rounded-lg bg-neutral-200 dark:bg-neutral-800" />
     </div>
 
-    <div
-      v-else-if="notFound || !blog"
-      class="mx-auto flex min-h-[60vh] max-w-3xl flex-col items-center justify-center px-4 py-16 text-center"
-    >
-      <UIcon
-        name="i-lucide-file-question"
-        class="size-10 text-neutral-400"
-      />
-      <h1 class="mt-5 text-2xl font-bold">
-        Blog bulunamadı
-      </h1>
-      <p class="mt-2 text-neutral-500">
-        Aradığınız yazı mevcut değil veya henüz yayınlanmamış.
-      </p>
-      <UButton
-        to="/blogs"
-        class="mt-6"
-        label="Tüm Yazılara Dön"
-        icon="i-lucide-arrow-left"
-        variant="outline"
-      />
-    </div>
-
     <article
-      v-else
+      v-else-if="blog"
       ref="articleRef"
     >
       <header class="relative overflow-hidden border-b border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900/40">

@@ -9,6 +9,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck",
+    "test:seo": "node --test tests/seo.test.mjs",
     "start": "node .output/server/index.mjs"
   },
   "engines": {

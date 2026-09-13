@@ -62,6 +62,7 @@ Uygulama varsayılan olarak `http://localhost:3000` adresinde açılır.
 | `npm run start` | Production sunucusu |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript kontrolü |
+| `npm run test:seo` | Production build üzerinde canonical, yönlendirme ve HTTP hata kontrolleri (`npm run build` sonrasında) |
 
 ## Production ortam değişkenleri
 
