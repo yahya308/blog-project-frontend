@@ -14,6 +14,8 @@ const article = {
   title: 'Published article',
   content: '<p>Published article content.</p>',
   excerpt: 'A published article.',
+  coverImage: 'https://images.pexels.com/photos/1/pexels-photo-1.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200',
+  authorName: 'Yahya Baltacı',
   status: 'YAYINDA',
   publishedAt: '2026-01-01T00:00:00.000Z',
   createdAt: '2026-01-01T00:00:00.000Z',
@@ -27,6 +29,17 @@ function canonical(html) {
   return [...html.matchAll(/<link\b[^>]*>/g)]
     .filter(([tag]) => /rel="canonical"/.test(tag))
     .map(([tag]) => tag.match(/href="([^"]*)"/)?.[1].replaceAll('&amp;', '&'))
+}
+
+function jsonLd(html) {
+  return [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)]
+    .map(([, json]) => JSON.parse(json))
+}
+
+function meta(html, key) {
+  return [...html.matchAll(/<meta\b[^>]*>/g)]
+    .filter(([tag]) => tag.includes(`"${key}"`))
+    .map(([tag]) => tag.match(/content="([^"]*)"/)?.[1].replaceAll('&amp;', '&'))
 }
 
 test('production HTTP responses preserve SEO and error semantics', { timeout: 60000 }, async (t) => {
@@ -110,6 +123,43 @@ test('production HTTP responses preserve SEO and error semantics', { timeout: 60
       assert.deepEqual(canonical(html), [`${siteUrl}${path}`], path)
       if (path.endsWith('published-article')) assert.match(html, /Published article content\./)
     }
+  })
+
+  await t.test('pages have descriptive titles and structured data', async () => {
+    const home = await (await fetchPage('/')).text()
+    assert.match(home, /<title>Yahya Baltacı \| Teknoloji, yaşam ve seyahat üzerine yazılar<\/title>/)
+    assert.equal(jsonLd(home)[0]['@type'], 'WebSite')
+
+    const about = await (await fetchPage('/hakkimda')).text()
+    assert.match(about, /<title>Hakkımda \| Yahya Baltacı<\/title>/)
+    assert.equal(jsonLd(about)[0].mainEntity.url, `${siteUrl}/hakkimda`)
+
+    const archive = await (await fetchPage('/blogs')).text()
+    assert.match(archive, /<title>Tüm Yazılar: Teknoloji, Yaşam ve Seyahat \| Yahya Baltacı<\/title>/)
+
+    const html = await (await fetchPage('/blogs/published-article')).text()
+    assert.match(html, /<title>Published article \| Yahya Baltacı<\/title>/)
+    const [posting] = jsonLd(html)
+    assert.equal(posting['@type'], 'BlogPosting')
+    assert.equal(posting.mainEntityOfPage, `${siteUrl}/blogs/published-article`)
+    assert.equal(posting.datePublished, article.publishedAt)
+    assert.equal(posting.author.url, `${siteUrl}/hakkimda`)
+    assert.deepEqual(posting.image, [article.coverImage])
+    assert.match(html, /rel="author"/)
+  })
+
+  await t.test('articles share their cover image and serve resized Pexels variants', async () => {
+    const html = await (await fetchPage('/blogs/published-article')).text()
+    assert.deepEqual(meta(html, 'og:image'), [article.coverImage])
+    assert.deepEqual(meta(html, 'twitter:image'), [])
+    assert.deepEqual(meta(html, 'article:published_time'), [article.publishedAt])
+    assert.match(html, /h=334&amp;w=640 640w/)
+  })
+
+  await t.test('sitemap lists published articles', async () => {
+    const response = await fetchPage('/sitemap.xml')
+    assert.equal(response.status, 200)
+    assert.match(await response.text(), new RegExp(`<loc>${siteUrl}/blogs/published-article</loc>`))
   })
 
   await t.test('category content keeps its own canonical', async () => {

@@ -21,3 +21,14 @@ export const SOCIAL_LINKS = [
     icon: 'i-simple-icons-instagram'
   }
 ]
+
+export const SITE_AUTHOR_PATH = '/hakkimda'
+
+// Shared schema.org Person for the site owner; @id lets pages reference the same entity.
+export const SITE_AUTHOR_SCHEMA = {
+  '@type': 'Person',
+  '@id': `${SITE_URL}${SITE_AUTHOR_PATH}#person`,
+  'name': SITE_NAME,
+  'url': `${SITE_URL}${SITE_AUTHOR_PATH}`,
+  'sameAs': SOCIAL_LINKS.map(link => link.href)
+}

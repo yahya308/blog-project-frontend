@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import type { Blog } from '~/types/blog'
 
+const archiveTitle = 'Tüm Yazılar: Teknoloji, Yaşam ve Seyahat'
+const archiveDescription = 'Teknoloji, yaşam, seyahat ve daha fazlası üzerine kişisel blog yazıları.'
+
 useSeoMeta({
-  title: 'Yazılar',
-  description: 'Teknoloji, yaşam, seyahat ve daha fazlası üzerine kişisel blog yazıları.'
+  title: archiveTitle,
+  description: archiveDescription,
+  ogTitle: archiveTitle,
+  ogDescription: archiveDescription
 })
 
 const { getPublishedBlogs } = useBlogsApi()

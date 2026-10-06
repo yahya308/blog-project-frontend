@@ -8,6 +8,14 @@ interface BlogsResponse {
   blogs?: SitemapBlog[]
 }
 
+interface SitemapUrl {
+  loc: string
+  lastmod?: string
+}
+
+// Last successful list, so a brief backend outage does not publish a sitemap without articles.
+let lastUrls: SitemapUrl[] | null = null
+
 export default defineSitemapEventHandler(async () => {
   const config = useRuntimeConfig()
   const apiBase = `${String(config.backendOrigin).replace(/\/+$/, '')}/api`
@@ -15,11 +23,16 @@ export default defineSitemapEventHandler(async () => {
   try {
     const response = await $fetch<BlogsResponse>(`${apiBase}/blogs`)
 
-    return (response.blogs ?? []).map(blog => ({
+    lastUrls = (response.blogs ?? []).map(blog => ({
       loc: `/blogs/${blog.slug}`,
       lastmod: blog.updatedAt || blog.publishedAt || undefined
     }))
-  } catch {
-    return []
+
+    return lastUrls
+  } catch (error) {
+    if (lastUrls) return lastUrls
+
+    // The sitemap module logs failed sources instead of silently treating them as empty.
+    throw error
   }
 })

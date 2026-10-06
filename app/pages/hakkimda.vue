@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SITE_NAME, SOCIAL_LINKS } from '~/utils/site'
+import { SITE_AUTHOR_PATH, SITE_AUTHOR_SCHEMA, SITE_NAME, SITE_URL, SOCIAL_LINKS } from '~/utils/site'
 
 const aboutDescription = 'İstanbul’da bilgisayar mühendisliği okuyan Yahya’nın kişisel blogu, hedefleri ve yolculuğu.'
 
@@ -7,7 +7,21 @@ useSeoMeta({
   title: `Hakkımda | ${SITE_NAME}`,
   description: aboutDescription,
   ogTitle: `Hakkımda | ${SITE_NAME}`,
-  ogDescription: aboutDescription
+  ogDescription: aboutDescription,
+  ogType: 'profile'
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: {
+      '@context': 'https://schema.org',
+      '@type': 'ProfilePage',
+      'url': `${SITE_URL}${SITE_AUTHOR_PATH}`,
+      'inLanguage': 'tr-TR',
+      'mainEntity': SITE_AUTHOR_SCHEMA
+    }
+  }]
 })
 
 const facts = [

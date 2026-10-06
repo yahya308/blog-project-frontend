@@ -1,21 +1,34 @@
 <script setup lang="ts">
 import type { Blog } from '~/types/blog'
-import { SITE_NAME, SITE_DESCRIPTION, SITE_TAGLINE } from '~/utils/site'
+import { SITE_AUTHOR_SCHEMA, SITE_NAME, SITE_DESCRIPTION, SITE_TAGLINE, SITE_URL } from '~/utils/site'
 
 definePageMeta({
   keepalive: true
 })
 
+const homeTitle = `${SITE_NAME} | ${SITE_TAGLINE}`
+
 useSeoMeta({
-  title: SITE_NAME,
+  title: homeTitle,
   description: SITE_DESCRIPTION,
-  ogTitle: `${SITE_NAME} | ${SITE_TAGLINE}`,
+  ogTitle: homeTitle,
   ogDescription: SITE_DESCRIPTION,
-  ogType: 'website',
-  ogLocale: 'tr_TR',
-  twitterCard: 'summary_large_image',
-  twitterTitle: SITE_NAME,
-  twitterDescription: SITE_DESCRIPTION
+  ogType: 'website'
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      'name': SITE_NAME,
+      'url': `${SITE_URL}/`,
+      'description': SITE_DESCRIPTION,
+      'inLanguage': 'tr-TR',
+      'author': SITE_AUTHOR_SCHEMA
+    }
+  }]
 })
 
 const { getPublishedBlogs } = useBlogsApi()

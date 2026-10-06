@@ -41,6 +41,21 @@ export function getOptimizedImageUrl(value: string, options: ImageOptions) {
   try {
     const url = new URL(value)
 
+    if (url.hostname === 'images.pexels.com') {
+      // Pexels URLs carry a fixed crop (e.g. w=1200&h=627); scale both sides to keep it.
+      const originalWidth = Number(url.searchParams.get('w'))
+      const originalHeight = Number(url.searchParams.get('h'))
+
+      if (originalWidth > 0 && originalHeight > 0) {
+        url.searchParams.set('h', String(Math.round(options.width * originalHeight / originalWidth)))
+      }
+
+      url.searchParams.set('w', String(options.width))
+      url.searchParams.set('auto', 'compress')
+
+      return url.toString()
+    }
+
     if (url.hostname !== 'images.unsplash.com') {
       return value
     }

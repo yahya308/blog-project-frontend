@@ -2,6 +2,7 @@
 import type { Blog } from '~/types/blog'
 import { getBlogAuthorName } from '~/utils/blog'
 import { getImageSrcSet, getOptimizedImageUrl } from '~/utils/image'
+import { SITE_AUTHOR_PATH, SITE_AUTHOR_SCHEMA, SITE_NAME, SITE_URL } from '~/utils/site'
 
 const route = useRoute()
 const toast = useToast()
@@ -58,6 +59,8 @@ if (pageError.value || !pageData.value?.blog) {
 const blog = computed<Blog | null>(() => pageData.value?.blog ?? null)
 const relatedBlogs = computed(() => pageData.value?.relatedBlogs ?? [])
 const authorName = computed(() => blog.value ? getBlogAuthorName(blog.value) : '')
+// Only the site owner has a profile page to link to.
+const isSiteAuthor = computed(() => authorName.value === SITE_NAME)
 
 const readingMinutes = computed(() => {
   const plainText = blog.value?.content.replace(/<[^>]*>/g, ' ') ?? ''
@@ -79,15 +82,43 @@ watch(() => blog.value?.coverImage, () => {
   nextTick(checkCoverImage)
 })
 
+const coverImageUrl = computed(() =>
+  blog.value?.coverImage ? new URL(blog.value.coverImage, SITE_URL).href : undefined
+)
+
 useSeoMeta({
   title: seoTitle,
   description: seoDescription,
   ogTitle: seoTitle,
   ogDescription: seoDescription,
-  ogImage: () => blog.value?.coverImage || undefined,
+  ogImage: coverImageUrl,
   ogType: 'article',
-  twitterCard: 'summary_large_image'
+  articlePublishedTime: () => blog.value?.publishedAt || undefined,
+  articleModifiedTime: () => blog.value?.updatedAt
 })
+
+useHead(() => ({
+  script: blog.value
+    ? [{
+        type: 'application/ld+json',
+        innerHTML: {
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          'headline': blog.value.title,
+          'description': seoDescription.value || undefined,
+          'image': coverImageUrl.value ? [coverImageUrl.value] : undefined,
+          'datePublished': blog.value.publishedAt || undefined,
+          'dateModified': blog.value.updatedAt,
+          'author': isSiteAuthor.value
+            ? SITE_AUTHOR_SCHEMA
+            : authorName.value ? { '@type': 'Person', 'name': authorName.value } : undefined,
+          'mainEntityOfPage': `${SITE_URL}/blogs/${blog.value.slug}`,
+          'articleSection': blog.value.categories?.map(category => category.name),
+          'inLanguage': 'tr-TR'
+        }
+      }]
+    : []
+}))
 
 useHead(() => ({
   meta: blog.value?.seoKeywords
@@ -234,8 +265,16 @@ onUnmounted(() => {
           </p>
 
           <div class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-3 text-sm text-neutral-500 dark:text-neutral-400">
+            <NuxtLink
+              v-if="isSiteAuthor"
+              :to="SITE_AUTHOR_PATH"
+              rel="author"
+              class="font-semibold text-neutral-700 transition hover:text-primary dark:text-neutral-200"
+            >
+              {{ authorName }}
+            </NuxtLink>
             <span
-              v-if="authorName"
+              v-else-if="authorName"
               class="font-semibold text-neutral-700 dark:text-neutral-200"
             >
               {{ authorName }}

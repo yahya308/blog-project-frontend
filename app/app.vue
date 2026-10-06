@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { tr } from '@nuxt/ui/locale'
-import { SITE_URL } from '~/utils/site'
+import { SITE_NAME, SITE_URL } from '~/utils/site'
 
 const requestUrl = useRequestURL()
 const socialImage = computed(() => new URL('/og.png', requestUrl.origin).toString())
@@ -21,6 +21,10 @@ const canonicalUrl = computed(() => {
 })
 
 useHead({
+  // Titles that already name the site (home, about) are left as they are.
+  titleTemplate: title => !title
+    ? SITE_NAME
+    : title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`,
   meta: [
     {
       name: 'google-site-verification',
@@ -35,10 +39,12 @@ useHead(() => ({
     : []
 }))
 
+// twitter:image is left unset so X falls back to each page's og:image.
 useSeoMeta({
   ogUrl: canonicalUrl,
   ogImage: socialImage,
-  twitterImage: socialImage,
+  ogSiteName: SITE_NAME,
+  ogLocale: 'tr_TR',
   twitterCard: 'summary_large_image'
 })
 </script>
